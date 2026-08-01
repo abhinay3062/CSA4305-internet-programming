@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registration Form Validation</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f2f2f2;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.container{
+    width:400px;
+    background:#fff;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+h2{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+label{
+    display:block;
+    margin-top:10px;
+    font-weight:bold;
+}
+
+input{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    border:1px solid #ccc;
+    border-radius:5px;
+    font-size:16px;
+}
+
+.error{
+    color:red;
+    font-size:14px;
+    margin-top:5px;
+}
+
+.success{
+    color:green;
+    font-size:14px;
+    margin-top:5px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    margin-top:20px;
+    background:#007BFF;
+    color:white;
+    border:none;
+    border-radius:5px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#0056b3;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<h2>Registration Form</h2>
+
+<form id="myForm">
+
+<label>Email</label>
+
+<input
+type="email"
+id="email"
+placeholder="Enter your email"
+required>
+
+<div id="emailMsg" class="error"></div>
+
+<label>Phone Number</label>
+
+<input
+type="tel"
+id="phone"
+placeholder="Enter 10-digit phone number"
+maxlength="10"
+required>
+
+<div id="phoneMsg" class="error"></div>
+
+<button type="submit">Register</button>
+
+</form>
+
+</div>
+
+<script>
+
+const email=document.getElementById("email");
+const phone=document.getElementById("phone");
+
+const emailMsg=document.getElementById("emailMsg");
+const phoneMsg=document.getElementById("phoneMsg");
+
+const form=document.getElementById("myForm");
+
+// Regular Expressions
+
+const emailRegex=/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+
+const phoneRegex=/^[6-9][0-9]{9}$/;
+
+
+// Email Validation
+
+email.addEventListener("keyup",function(){
+
+if(emailRegex.test(email.value))
+{
+emailMsg.innerHTML="✓ Valid Email";
+emailMsg.className="success";
+}
+else
+{
+emailMsg.innerHTML="✗ Invalid Email Address";
+emailMsg.className="error";
+}
+
+});
+
+
+// Phone Validation
+
+phone.addEventListener("keyup",function(){
+
+if(phoneRegex.test(phone.value))
+{
+phoneMsg.innerHTML="✓ Valid Phone Number";
+phoneMsg.className="success";
+}
+else
+{
+phoneMsg.innerHTML="✗ Enter a valid 10-digit number";
+phoneMsg.className="error";
+}
+
+});
+
+
+// Form Validation
+
+form.addEventListener("submit",function(e){
+
+if(!emailRegex.test(email.value) || !phoneRegex.test(phone.value))
+{
+alert("Please enter valid Email and Phone Number.");
+e.preventDefault();
+}
+else
+{
+alert("Registration Successful!");
+}
+
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Experiment 3 - CSS Layout Debugging</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f4f4f4;
+}
+
+/* Header */
+header{
+    background:#0077cc;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+/* Navigation */
+nav{
+    display:flex;
+    justify-content:center;
+    background:#333;
+    flex-wrap:wrap;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    padding:15px 20px;
+}
+
+nav a:hover{
+    background:#555;
+}
+
+/* Main Layout */
+.container{
+    display:flex;
+    gap:20px;
+    padding:20px;
+}
+
+/* Sidebar */
+.sidebar{
+    flex:1;
+    background:#e6e6e6;
+    padding:20px;
+    border-radius:8px;
+}
+
+/* Content */
+.content{
+    flex:3;
+    background:white;
+    padding:20px;
+    border-radius:8px;
+}
+
+.content img{
+    width:100%;
+    height:auto;
+    border-radius:8px;
+    margin:20px 0;
+}
+
+/* Footer */
+footer{
+    background:#0077cc;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:20px;
+}
+
+/* Tablet View */
+@media screen and (max-width:768px){
+
+.container{
+    flex-direction:column;
+}
+
+}
+
+/* Mobile View */
+@media screen and (max-width:480px){
+
+nav{
+    flex-direction:column;
+}
+
+nav a{
+    width:100%;
+    text-align:center;
+    border-bottom:1px solid white;
+}
+
+.container{
+    padding:10px;
+}
+
+.sidebar,
+.content{
+    width:100%;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+<h1>CSS Layout Debugging</h1>
+</header>
+
+<nav>
+<a href="#">Home</a>
+<a href="#">About</a>
+<a href="#">Services</a>
+<a href="#">Contact</a>
+</nav>
+
+<div class="container">
+
+<div class="sidebar">
+<h2>Sidebar</h2>
+<p>Dashboard</p>
+<p>Profile</p>
+<p>Settings</p>
+<p>Help</p>
+</div>
+
+<div class="content">
+
+<h2>Main Content</h2>
+
+<p>
+This webpage demonstrates a responsive layout using CSS Flexbox.
+Resize the browser window to observe how the layout changes without overlapping.
+</p>
+
+<img src="https://picsum.photos/700/300" alt="Sample Image">
+
+<p>
+The layout automatically adjusts for desktop, tablet, and mobile devices using media queries.
+Proper spacing, alignment, and the CSS box model improve readability and usability.
+</p>
+
+</div>
+
+</div>
+
+<footer>
+<h3>&copy; 2026 CSS Layout Debugging Experiment</h3>
+</footer>
+
+</body>
+</html>
