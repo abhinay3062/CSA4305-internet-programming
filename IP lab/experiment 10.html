@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bus Booking Lab</title>
+<style>
+body{font-family:Arial;background:#eef;margin:0}header{background:#1565c0;color:#fff;padding:15px;text-align:center}
+nav button{margin:4px}.page{display:none;padding:20px}.active{display:block}
+input,select,textarea{display:block;margin:8px 0;padding:8px;width:260px}button{padding:8px 14px}
+table{border-collapse:collapse;width:100%;margin-top:10px}td,th{border:1px solid #999;padding:6px}
+</style></head><body>
+<header><h2>Online Bus Ticket Booking</h2>
+<nav>
+<button onclick="show('home')">Home</button>
+<button onclick="show('register')">Register</button>
+<button onclick="show('login')">Login</button>
+<button onclick="show('book')">Book</button>
+<button onclick="show('admin')">Admin</button>
+</nav></header>
+<div id="home" class="page active"><h3>Welcome</h3><p>Lab experiment using HTML, CSS and JavaScript only.</p></div>
+<div id="register" class="page"><h3>Register</h3>
+<input id="rname" placeholder="Name"><input id="remail" placeholder="Email"><input id="rpass" type="password" placeholder="Password">
+<button onclick="reg()">Register</button></div>
+<div id="login" class="page"><h3>Login</h3>
+<input id="lemail" placeholder="Email"><input id="lpass" type="password" placeholder="Password">
+<button onclick="login()">Login</button></div>
+<div id="book" class="page"><h3>Book Ticket</h3>
+<input id="from" placeholder="From"><input id="to" placeholder="To"><input id="date" type="date">
+<select id="bus"><option>Volvo</option><option>Sleeper</option><option>AC Coach</option></select>
+<input id="seat" type="number" placeholder="Seat">
+<button onclick="book()">Book</button>
+<button onclick="cancelLast()">Cancel Last Booking</button>
+<h4>Comments</h4><textarea id="comment"></textarea><button onclick="addComment()">Post</button><ul id="comments"></ul>
+<h4>Bookings</h4><table><thead><tr><th>Name</th><th>Route</th><th>Date</th><th>Bus</th><th>Seat</th></tr></thead><tbody id="report"></tbody></table>
+</div>
+<div id="admin" class="page"><h3>Admin Panel</h3><p>Bus Categories: Volvo, Sleeper, AC Coach</p><p>Total Users: <span id="ucount">0</span></p><p>Total Bookings: <span id="bcount">0</span></p></div>
+<script>
+function show(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');refresh();}
+function reg(){let u=JSON.parse(localStorage.users||'[]');u.push({name:rname.value,email:remail.value,pass:rpass.value});localStorage.users=JSON.stringify(u);alert('Registered');}
+function login(){let u=JSON.parse(localStorage.users||'[]').find(x=>x.email==lemail.value&&x.pass==lpass.value);if(u){localStorage.current=u.name;alert('Login Success');show('book')}else alert('Invalid');}
+function book(){let b=JSON.parse(localStorage.bookings||'[]');b.push({name:localStorage.current||'Guest',route:from.value+'-'+to.value,date:date.value,bus:bus.value,seat:seat.value});localStorage.bookings=JSON.stringify(b);refresh();alert('Booked');}
+function cancelLast(){let b=JSON.parse(localStorage.bookings||'[]');b.pop();localStorage.bookings=JSON.stringify(b);refresh();}
+function addComment(){let li=document.createElement('li');li.textContent=comment.value;comments.appendChild(li);comment.value='';}
+function refresh(){let b=JSON.parse(localStorage.bookings||'[]');report.innerHTML='';b.forEach(x=>report.innerHTML+=`<tr><td>${x.name}</td><td>${x.route}</td><td>${x.date}</td><td>${x.bus}</td><td>${x.seat}</td></tr>`);ucount.textContent=JSON.parse(localStorage.users||'[]').length;bcount.textContent=b.length;}
+refresh();
+</script></body></html>
