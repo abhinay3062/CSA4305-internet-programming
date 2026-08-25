@@ -1,0 +1,29 @@
+Algorithm: Validate User Input
+Input: User-entered form data
+Output: Validated form submission or appropriate error messages
+Step 1: Start.
+Step 2: Receive the submitted form data.
+Step 3: Initialize an empty error list.
+Step 4: Read the required fields such as:
+• Name/Username
+• Email
+• Password
+Step 5: Check whether any required field is empty.
+• If a field is empty, add an appropriate error message.
+• Otherwise, continue validation.
+Step 6: Validate the email format.
+• If the email format is invalid, add "Invalid email format".
+• Otherwise, continue.
+Step 7: Validate the password.
+• Check whether the password satisfies the required length/format.
+• If invalid, add "Invalid password".
+
+Step 8: Check the error list.
+Step 9: If errors exist:
+• Display the appropriate error messages.
+• Prevent form submission.
+Step 10: Otherwise:
+• Accept the submitted data.
+• Process/store the validated data.
+• Allow form submission.
+Step 11: Stop.

@@ -1,0 +1,23 @@
+Algorithm: JSP Request Flow
+Input: Client request
+Output: Dynamic HTML response sent to the client
+Step 1: Start.
+Step 2: Client sends an HTTP request for a JSP page.
+Step 3: Web server receives the request.
+Step 4: Server identifies the requested JSP page.
+Step 5: Check whether the JSP page has already been compiled.
+• If not compiled, translate the JSP page into a Servlet.
+• Compile the generated Servlet.
+Step 6: Execute the JSP/Servlet.
+Step 7: JSP/Servlet processes the request parameters.
+
+Step 8: If backend processing is required, forward the request to the appropriate
+Servlet or backend component.
+Step 9: Backend component establishes a connection with the database if
+required.
+Step 10: Execute the required database operation and retrieve the result.
+Step 11: Return the retrieved data to the JSP/Servlet.
+Step 12: JSP uses the data to generate dynamic HTML content.
+Step 13: Server sends the generated HTML response to the client.
+Step 14: Client receives and displays the dynamic web page.
+Step 15: Stop.

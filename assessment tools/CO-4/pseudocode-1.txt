@@ -1,0 +1,28 @@
+Algorithm: Parse XML Document
+Input: XML file containing structured user/product data
+Output: Extracted XML data displayed in readable format
+Step 1: Start.
+Step 2: Specify the XML file path.
+Step 3: Load the XML document into an XML parser.
+Step 4: Check whether the XML document is loaded successfully.
+• If loading fails, display "Error: Unable to load XML file" and stop.
+• Otherwise, continue.
+Step 5: Access the root element of the XML document.
+Step 6: Identify the required child elements under the root node.
+Step 7: Traverse each child node using a loop.
+Step 8: For every node:
+• Check whether the node contains the required element.
+• Extract the element value.
+• Extract attributes if required.
+• Store the extracted data.
+Step 9: If a node contains child nodes, recursively traverse the child nodes to handle
+the hierarchical structure.
+Step 10: Continue traversal until all required nodes are processed.
+Step 11: Display the extracted information in a readable format such as:
+• ID
+• Name
+• Email
+• Product
+• Price
+Step 12: Close the XML parser and release resources.
+Step 13: Stop.

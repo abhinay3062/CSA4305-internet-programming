@@ -1,0 +1,29 @@
+Algorithm: Retrieve Data from Database
+Input: Database details and SQL query
+Output: Retrieved records displayed to the user
+Step 1: Start.
+Step 2: Specify database connection details:
+• Database URL
+• Username
+• Password
+Step 3: Establish a connection with the database.
+Step 4: Check whether the connection is successful.
+• If connection fails, display "Database connection failed" and stop.
+• Otherwise, continue.
+Step 5: Create a database statement/query object.
+Step 6: Execute the required SQL SELECT query.
+Step 7: Store the returned records in a result set.
+Step 8: Check whether the result set contains records.
+• If no records are found, display "No records found".
+• Otherwise, continue.
+
+Step 9: Traverse the result set using a loop.
+Step 10: For each record:
+• Retrieve the required column values.
+• Store/process the values.
+• Display the retrieved data.
+Step 11: Continue until all records have been processed.
+Step 12: Close the result set.
+Step 13: Close the statement/query object.
+Step 14: Close the database connection.
+Step 15: Stop.
