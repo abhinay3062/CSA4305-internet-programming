@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Online Cake Shop</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #fff5f7;
+    color: #333;
+}
+
+header {
+    background: #d63384;
+    color: white;
+    text-align: center;
+    padding: 25px;
+}
+
+nav {
+    background: #8e2457;
+    text-align: center;
+    padding: 12px;
+}
+
+nav button {
+    background: transparent;
+    border: none;
+    color: white;
+    margin: 5px 12px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.container {
+    width: 92%;
+    max-width: 1100px;
+    margin: 25px auto;
+}
+
+.card {
+    background: white;
+    padding: 22px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px #ddd;
+}
+
+h2 {
+    color: #d63384;
+}
+
+input, select, textarea {
+    padding: 11px;
+    margin: 6px;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 5px;
+    background: #d63384;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #b52b6e;
+}
+
+.danger {
+    background: #dc3545;
+}
+
+.success {
+    background: #198754;
+}
+
+.hidden {
+    display: none;
+}
+
+.message {
+    background: #d1e7dd;
+    color: #155724;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.cake-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.cake {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px #ddd;
+    padding-bottom: 15px;
+}
+
+.cake-img {
+    width: 100%;
+    height: 160px;
+    background: #ffe0ea;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 70px;
+}
+
+.cake-content {
+    padding: 15px;
+}
+
+.price {
+    color: #d63384;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background: #d63384;
+    color: white;
+}
+
+footer {
+    background: #8e2457;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 30px;
+}
+
+@media(max-width:700px) {
+
+    input, select, textarea, button {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    table {
+        font-size: 12px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<header>
+
+<h1>🎂 Sweet Cake Shop</h1>
+
+<p>Fresh Cakes • Easy Ordering • Fast Delivery</p>
+
+</header>
+
+
+<nav>
+
+<button onclick="showPage('home')">Home</button>
+
+<button onclick="showPage('shop')">Search Cake</button>
+
+<button onclick="showPage('cart')">Cart</button>
+
+<button onclick="showPage('orders')">My Orders</button>
+
+<button onclick="showPage('login')">Login</button>
+
+<button onclick="showPage('register')">Register</button>
+
+<button onclick="showPage('admin')">Admin</button>
+
+</nav>
+
+
+<div class="container">
+
+<div id="message"></div>
+
+
+<!-- HOME -->
+
+<section id="home" class="card page">
+
+<h2>Welcome to Sweet Cake Shop 🎂</h2>
+
+<p>
+Order delicious cakes online from our collection of
+birthday cakes, wedding cakes, chocolate cakes and
+special occasion cakes.
+</p>
+
+<h3>Our Features</h3>
+
+<ul>
+
+<li>Search Cakes</li>
+
+<li>Category and Sub-category</li>
+
+<li>Price Range Filter</li>
+
+<li>View Cake Details</li>
+
+<li>Add to Cart</li>
+
+<li>Place Orders</li>
+
+<li>Shipping Address Management</li>
+
+<li>Order Tracking</li>
+
+<li>Admin Product Management</li>
+
+</ul>
+
+</section>
+
+
+<!-- REGISTER -->
+
+<section id="register" class="card page hidden">
+
+<h2>📝 Student Registration</h2>
+
+<input
+id="regName"
+placeholder="Full Name">
+
+<input
+id="regEmail"
+placeholder="Email">
+
+<input
+id="regPassword"
+type="password"
+placeholder="Password">
+
+<input
+id="regPhone"
+placeholder="Phone Number">
+
+<button onclick="register()">
+Register
+</button>
+
+</section>
+
+
+<!-- LOGIN -->
+
+<section id="login" class="card page hidden">
+
+<h2>🔐 Student Login</h2>
+
+<input
+id="loginEmail"
+placeholder="Email">
+
+<input
+id="loginPassword"
+type="password"
+placeholder="Password">
+
+<button onclick="login()">
+Login
+</button>
+
+<p>
+
+Demo User:
+
+<b>student@gmail.com</b> /
+
+<b>1234</b>
+
+</p>
+
+<p>
+
+Admin:
+
+<b>admin@gmail.com</b> /
+
+<b>admin123</b>
+
+</p>
+
+</section>
+
+
+<!-- SHOP -->
+
+<section id="shop" class="card page hidden">
+
+<h2>🔎 Search Cake</h2>
+
+<input
+id="searchCake"
+placeholder="Search cake name"
+onkeyup="displayCakes()">
+
+
+<select id="category"
+onchange="displayCakes()">
+
+<option value="All">
+All Categories
+</option>
+
+<option value="Birthday">
+Birthday Cakes
+</option>
+
+<option value="Wedding">
+Wedding Cakes
+</option>
+
+<option value="Chocolate">
+Chocolate Cakes
+</option>
+
+<option value="Special">
+Special Cakes
+</option>
+
+</select>
+
+
+<select id="subcategory"
+onchange="displayCakes()">
+
+<option value="All">
+All Sub Categories
+</option>
+
+<option value="Eggless">
+Eggless
+</option>
+
+<option value="Fruit">
+Fruit
+</option>
+
+<option value="Cream">
+Cream
+</option>
+
+<option value="Designer">
+Designer
+</option>
+
+</select>
+
+
+<select id="priceRange"
+onchange="displayCakes()">
+
+<option value="All">
+All Prices
+</option>
+
+<option value="500">
+Below ₹500
+</option>
+
+<option value="1000">
+₹500 - ₹1000
+</option>
+
+<option value="2000">
+₹1000 - ₹2000
+</option>
+
+<option value="2001">
+Above ₹2000
+</option>
+
+</select>
+
+
+<div
+id="cakeList"
+class="cake-container">
+</div>
+
+</section>
+
+
+<!-- CART -->
+
+<section id="cart" class="card page hidden">
+
+<h2>🛒 Shopping Cart</h2>
+
+<div id="cartItems"></div>
+
+<h3 id="cartTotal"></h3>
+
+<button onclick="showPage('address')">
+Place Order
+</button>
+
+</section>
+
+
+<!-- CAKE DESCRIPTION -->
+
+<section id="description" class="card page hidden">
+
+<h2>🍰 Cake Description</h2>
+
+<div id="cakeDescription"></div>
+
+</section>
+
+
+<!-- SHIPPING ADDRESS -->
+
+<section id="address" class="card page hidden">
+
+<h2>📍 Shipping Address</h2>
+
+<textarea
+id="shippingAddress"
+rows="5"
+placeholder="Enter complete shipping address">
+</textarea>
+
+<br>
+
+<button onclick="placeOrder()">
+Confirm Order
+</button>
+
+</section>
+
+
+<!-- ORDERS -->
+
+<section id="orders" class="card page hidden">
+
+<h2>📦 My Orders</h2>
+
+<div class="table-container">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Order ID</th>
+
+<th>Cake</th>
+
+<th>Quantity</th>
+
+<th>Total</th>
+
+<th>Address</th>
+
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody id="orderTable">
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+
+<!-- ADMIN -->
+
+<section id="admin" class="card page hidden">
+
+<h2>⚙️ Admin Panel</h2>
+
+
+<h3>Post Cake Details</h3>
+
+
+<input
+id="newCakeName"
+placeholder="Cake Name">
+
+
+<select id="newCategory">
+
+<option>Birthday</option>
+
+<option>Wedding</option>
+
+<option>Chocolate</option>
+
+<option>Special</option>
+
+</select>
+
+
+<select id="newSubcategory">
+
+<option>Eggless</option>
+
+<option>Fruit</option>
+
+<option>Cream</option>
+
+<option>Designer</option>
+
+</select>
+
+
+<input
+id="newPrice"
+type="number"
+placeholder="Price">
+
+
+<input
+id="newDescription"
+placeholder="Description">
+
+
+<input
+id="newImage"
+placeholder="Image URL">
+
+
+<br>
+
+<button onclick="addCake()">
+Post Cake
+</button>
+
+
+<h3>Manage Products</h3>
+
+<div class="table-container">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+
+<th>Cake</th>
+
+<th>Category</th>
+
+<th>Sub Category</th>
+
+<th>Price</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="adminCakeTable">
+
+</tbody>
+
+</table>
+
+</div>
+
+
+<h3>Manage Orders</h3>
+
+<div class="table-container">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Order ID</th>
+
+<th>Cake</th>
+
+<th>Total</th>
+
+<th>Shipping</th>
+
+<th>Status</th>
+
+<th>Update</th>
+
+</tr>
+
+</thead>
+
+<tbody id="adminOrderTable">
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+
+</div>
+
+
+<footer>
+
+Sweet Cake Shop |
+Internet Programming Lab
+
+</footer>
+
+
+<script>
+
+
+/* =====================================
+   CAKE DATA
+===================================== */
+
+let cakes = [
+
+{
+id: 1,
+name: "Chocolate Truffle Cake",
+category: "Chocolate",
+subcategory: "Cream",
+price: 650,
+description:
+"Rich chocolate cake covered with creamy chocolate truffle.",
+image: "🍫"
+},
+
+{
+id: 2,
+name: "Black Forest Cake",
+category: "Birthday",
+subcategory: "Cream",
+price: 750,
+description:
+"Classic black forest cake with chocolate and cherries.",
+image: "🍒"
+},
+
+{
+id: 3,
+name: "Red Velvet Cake",
+category: "Special",
+subcategory: "Cream",
+price: 950,
+description:
+"Soft red velvet cake with delicious cream cheese frosting.",
+image: "❤️"
+},
+
+{
+id: 4,
+name: "Fresh Fruit Cake",
+category: "Birthday",
+subcategory: "Fruit",
+price: 850,
+description:
+"Fresh cream cake topped with seasonal fruits.",
+image: "🍓"
+},
+
+{
+id: 5,
+name: "Wedding Designer Cake",
+category: "Wedding",
+subcategory: "Designer",
+price: 2500,
+description:
+"Beautiful multi-layer designer wedding cake.",
+image: "💍"
+},
+
+{
+id: 6,
+name: "Eggless Vanilla Cake",
+category: "Birthday",
+subcategory: "Eggless",
+price: 550,
+description:
+"Soft and delicious eggless vanilla cake.",
+image: "🍰"
+}
+
+];
+
+
+let cart = [];
+
+let orders = [];
+
+let currentUser = null;
+
+
+/* =====================================
+   PAGE NAVIGATION
+===================================== */
+
+function showPage(page) {
+
+document
+.querySelectorAll(".page")
+.forEach(function(p) {
+
+p.classList.add("hidden");
+
+});
+
+
+document
+.getElementById(page)
+.classList.remove("hidden");
+
+
+if(page === "shop") {
+
+displayCakes();
+
+}
+
+
+if(page === "cart") {
+
+displayCart();
+
+}
+
+
+if(page === "orders") {
+
+displayOrders();
+
+}
+
+
+if(page === "admin") {
+
+displayAdminCakes();
+
+displayAdminOrders();
+
+}
+
+}
+
+
+/* =====================================
+   MESSAGE
+===================================== */
+
+function message(text) {
+
+document.getElementById("message").innerHTML =
+
+"<div class='message'>" +
+text +
+"</div>";
+
+}
+
+
+/* =====================================
+   REGISTER
+===================================== */
+
+function register() {
+
+let name =
+document.getElementById("regName").value;
+
+let email =
+document.getElementById("regEmail").value;
+
+let password =
+document.getElementById("regPassword").value;
+
+let phone =
+document.getElementById("regPhone").value;
+
+
+if(
+name === "" ||
+email === "" ||
+password === "" ||
+phone === ""
+) {
+
+alert("Please fill all fields.");
+
+return;
+
+}
+
+
+message("Registration successful!");
+
+showPage("login");
+
+}
+
+
+/* =====================================
+   LOGIN
+===================================== */
+
+function login() {
+
+let email =
+document.getElementById("loginEmail").value;
+
+let password =
+document.getElementById("loginPassword").value;
+
+
+if(
+email === "admin@gmail.com" &&
+password === "admin123"
+) {
+
+currentUser = "admin";
+
+message("Admin login successful.");
+
+showPage("admin");
+
+return;
+
+}
+
+
+if(
+email === "student@gmail.com" &&
+password === "1234"
+) {
+
+currentUser = "student";
+
+message("Student login successful.");
+
+showPage("home");
+
+return;
+
+}
+
+
+alert("Invalid login details.");
+
+}
+
+
+/* =====================================
+   DISPLAY CAKES
+===================================== */
+
+function displayCakes() {
+
+let search =
+document
+.getElementById("searchCake")
+.value
+.toLowerCase();
+
+
+let category =
+document
+.getElementById("category")
+.value;
+
+
+let subcategory =
+document
+.getElementById("subcategory")
+.value;
+
+
+let price =
+document
+.getElementById("priceRange")
+.value;
+
+
+let result =
+cakes.filter(function(cake) {
+
+
+let nameMatch =
+cake.name
+.toLowerCase()
+.includes(search);
+
+
+let categoryMatch =
+category === "All" ||
+cake.category === category;
+
+
+let subMatch =
+subcategory === "All" ||
+cake.subcategory === subcategory;
+
+
+let priceMatch = true;
+
+
+if(price === "500") {
+
+priceMatch = cake.price < 500;
+
+}
+
+else if(price === "1000") {
+
+priceMatch =
+cake.price >= 500 &&
+cake.price <= 1000;
+
+}
+
+else if(price === "2000") {
+
+priceMatch =
+cake.price > 1000 &&
+cake.price <= 2000;
+
+}
+
+else if(price === "2001") {
+
+priceMatch = cake.price > 2000;
+
+}
+
+
+return (
+nameMatch &&
+categoryMatch &&
+subMatch &&
+priceMatch
+);
+
+});
+
+
+let list =
+document.getElementById("cakeList");
+
+
+list.innerHTML = "";
+
+
+if(result.length === 0) {
+
+list.innerHTML =
+"<p>No cakes found.</p>";
+
+return;
+
+}
+
+
+result.forEach(function(cake) {
+
+
+list.innerHTML += `
+
+<div class="cake">
+
+<div class="cake-img">
+
+${cake.image}
+
+</div>
+
+<div class="cake-content">
+
+<h3>
+${cake.name}
+</h3>
+
+<p>
+${cake.category}
+-
+${cake.subcategory}
+</p>
+
+<p class="price">
+₹${cake.price}
+</p>
+
+<button
+onclick="viewDescription(${cake.id})">
+
+View Description
+
+</button>
+
+<button
+onclick="addToCart(${cake.id})">
+
+Add to Cart
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+
+/* =====================================
+   VIEW DESCRIPTION
+===================================== */
+
+function viewDescription(id) {
+
+let cake =
+cakes.find(function(c) {
+
+return c.id === id;
+
+});
+
+
+document.getElementById("cakeDescription").innerHTML = `
+
+<h2>${cake.image} ${cake.name}</h2>
+
+<p>
+<b>Category:</b>
+${cake.category}
+</p>
+
+<p>
+<b>Sub Category:</b>
+${cake.subcategory}
+</p>
+
+<p>
+<b>Price:</b>
+₹${cake.price}
+</p>
+
+<p>
+<b>Description:</b>
+${cake.description}
+</p>
+
+<button
+onclick="addToCart(${cake.id})">
+
+Add to Cart
+
+</button>
+
+`;
+
+
+showPage("description");
+
+}
+
+
+/* =====================================
+   ADD TO CART
+===================================== */
+
+function addToCart(id) {
+
+let cake =
+cakes.find(function(c) {
+
+return c.id === id;
+
+});
+
+
+let existing =
+cart.find(function(item) {
+
+return item.id === id;
+
+});
+
+
+if(existing) {
+
+existing.quantity++;
+
+}
+
+else {
+
+cart.push({
+
+id: cake.id,
+
+name: cake.name,
+
+price: cake.price,
+
+quantity: 1
+
+});
+
+}
+
+
+message(
+cake.name +
+" added to cart."
+);
+
+
+}
+
+
+/* =====================================
+   DISPLAY CART
+===================================== */
+
+function displayCart() {
+
+let container =
+document.getElementById("cartItems");
+
+
+container.innerHTML = "";
+
+
+if(cart.length === 0) {
+
+container.innerHTML =
+"<p>Your cart is empty.</p>";
+
+document.getElementById("cartTotal").innerHTML =
+"Total: ₹0";
+
+return;
+
+}
+
+
+let total = 0;
+
+
+cart.forEach(function(item, index) {
+
+
+let itemTotal =
+item.price *
+item.quantity;
+
+
+total += itemTotal;
+
+
+container.innerHTML += `
+
+<div class="card">
+
+<h3>
+${item.name}
+</h3>
+
+<p>
+Price: ₹${item.price}
+</p>
+
+<p>
+Quantity: ${item.quantity}
+</p>
+
+<p>
+Subtotal: ₹${itemTotal}
+</p>
+
+<button
+onclick="increaseQuantity(${index})">
+
++
+
+</button>
+
+<button
+onclick="decreaseQuantity(${index})">
+
+-
+
+</button>
+
+<button
+class="danger"
+onclick="removeCart(${index})">
+
+Remove
+
+</button>
+
+</div>
+
+`;
+
+});
+
+
+document.getElementById("cartTotal").innerHTML =
+
+"Total: ₹" + total;
+
+}
+
+
+/* =====================================
+   CART FUNCTIONS
+===================================== */
+
+function increaseQuantity(index) {
+
+cart[index].quantity++;
+
+displayCart();
+
+}
+
+
+function decreaseQuantity(index) {
+
+if(cart[index].quantity > 1) {
+
+cart[index].quantity--;
+
+}
+
+displayCart();
+
+}
+
+
+function removeCart(index) {
+
+cart.splice(index, 1);
+
+displayCart();
+
+}
+
+
+/* =====================================
+   PLACE ORDER
+===================================== */
+
+function placeOrder() {
+
+if(cart.length === 0) {
+
+alert("Cart is empty.");
+
+return;
+
+}
+
+
+let address =
+document
+.getElementById("shippingAddress")
+.value;
+
+
+if(address === "") {
+
+alert("Enter shipping address.");
+
+return;
+
+}
+
+
+let total = 0;
+
+
+cart.forEach(function(item) {
+
+total +=
+item.price *
+item.quantity;
+
+});
+
+
+let order = {
+
+id:
+"ORD" +
+Math.floor(
+1000 +
+Math.random() * 9000
+),
+
+items:
+cart.map(function(item) {
+
+return item.name;
+
+}).join(", "),
+
+quantity:
+cart.reduce(
+function(sum, item) {
+
+return sum + item.quantity;
+
+}, 0),
+
+total: total,
+
+address: address,
+
+status: "Order Placed"
+
+};
+
+
+orders.push(order);
+
+
+cart = [];
+
+
+alert(
+"Order placed successfully!\n" +
+"Order ID: " +
+order.id
+);
+
+
+showPage("orders");
+
+}
+
+
+/* =====================================
+   DISPLAY ORDERS
+===================================== */
+
+function displayOrders() {
+
+let table =
+document.getElementById("orderTable");
+
+
+table.innerHTML = "";
+
+
+if(orders.length === 0) {
+
+table.innerHTML =
+"<tr><td colspan='6'>No orders found.</td></tr>";
+
+return;
+
+}
+
+
+orders.forEach(function(order) {
+
+table.innerHTML += `
+
+<tr>
+
+<td>${order.id}</td>
+
+<td>${order.items}</td>
+
+<td>${order.quantity}</td>
+
+<td>₹${order.total}</td>
+
+<td>${order.address}</td>
+
+<td>${order.status}</td>
+
+</tr>
+
+`;
+
+});
+
+}
+
+
+/* =====================================
+   ADMIN ADD CAKE
+===================================== */
+
+function addCake() {
+
+if(currentUser !== "admin") {
+
+alert("Admin login required.");
+
+return;
+
+}
+
+
+let name =
+document.getElementById("newCakeName").value;
+
+let category =
+document.getElementById("newCategory").value;
+
+let subcategory =
+document.getElementById("newSubcategory").value;
+
+let price =
+Number(
+document.getElementById("newPrice").value
+);
+
+let description =
+document.getElementById("newDescription").value;
+
+let image =
+document.getElementById("newImage").value;
+
+
+if(
+name === "" ||
+price <= 0 ||
+description === ""
+) {
+
+alert("Enter complete cake details.");
+
+return;
+
+}
+
+
+let cake = {
+
+id:
+cakes.length + 1,
+
+name: name,
+
+category: category,
+
+subcategory: subcategory,
+
+price: price,
+
+description: description,
+
+image:
+image === ""
+? "🎂"
+: "🖼️"
+
+};
+
+
+cakes.push(cake);
+
+
+message(
+"Cake posted successfully."
+);
+
+
+displayAdminCakes();
+
+}
+
+
+/* =====================================
+   ADMIN CAKE TABLE
+===================================== */
+
+function displayAdminCakes() {
+
+let table =
+document.getElementById(
+"adminCakeTable"
+);
+
+
+table.innerHTML = "";
+
+
+cakes.forEach(function(cake, index) {
+
+
+table.innerHTML += `
+
+<tr>
+
+<td>${cake.id}</td>
+
+<td>${cake.name}</td>
+
+<td>${cake.category}</td>
+
+<td>${cake.subcategory}</td>
+
+<td>₹${cake.price}</td>
+
+<td>
+
+<button
+class="danger"
+onclick="deleteCake(${index})">
+
+Delete
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+}
+
+
+/* =====================================
+   DELETE CAKE
+===================================== */
+
+function deleteCake(index) {
+
+if(confirm("Delete this cake?")) {
+
+cakes.splice(index, 1);
+
+displayAdminCakes();
+
+message(
+"Cake deleted successfully."
+);
+
+}
+
+}
+
+
+/* =====================================
+   ADMIN ORDERS
+===================================== */
+
+function displayAdminOrders() {
+
+let table =
+document.getElementById(
+"adminOrderTable"
+);
+
+
+table.innerHTML = "";
+
+
+if(orders.length === 0) {
+
+table.innerHTML =
+"<tr><td colspan='6'>No orders available.</td></tr>";
+
+return;
+
+}
+
+
+orders.forEach(function(order, index) {
+
+
+table.innerHTML += `
+
+<tr>
+
+<td>${order.id}</td>
+
+<td>${order.items}</td>
+
+<td>₹${order.total}</td>
+
+<td>${order.address}</td>
+
+<td>${order.status}</td>
+
+<td>
+
+<select
+onchange="updateStatus(${index}, this.value)">
+
+<option>
+${order.status}
+</option>
+
+<option>
+Processing
+</option>
+
+<option>
+Shipped
+</option>
+
+<option>
+Out for Delivery
+</option>
+
+<option>
+Delivered
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+}
+
+
+/* =====================================
+   UPDATE ORDER STATUS
+===================================== */
+
+function updateStatus(index, status) {
+
+orders[index].status = status;
+
+message(
+"Order status updated to " +
+status
+);
+
+displayAdminOrders();
+
+}
+
+
+/* =====================================
+   INITIAL DISPLAY
+===================================== */
+
+displayCakes();
+
+displayAdminCakes();
+
+displayOrders();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Online Flight Reservation System</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #eef4f8;
+    color: #222;
+}
+
+header {
+    background: #0b3d62;
+    color: white;
+    text-align: center;
+    padding: 25px;
+}
+
+header h1 {
+    margin: 5px;
+}
+
+nav {
+    background: #062b46;
+    text-align: center;
+    padding: 12px;
+}
+
+nav button {
+    background: transparent;
+    color: white;
+    border: none;
+    margin: 5px 12px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.container {
+    width: 92%;
+    max-width: 1100px;
+    margin: 25px auto;
+}
+
+.card {
+    background: white;
+    padding: 22px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px #bbb;
+}
+
+h2 {
+    color: #0b3d62;
+}
+
+input, select {
+    padding: 11px;
+    margin: 6px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 5px;
+    background: #0b3d62;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #12649c;
+}
+
+.danger {
+    background: #c62828;
+}
+
+.success {
+    background: #198754;
+}
+
+.hidden {
+    display: none;
+}
+
+.message {
+    background: #d9f2df;
+    color: #155724;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background: #0b3d62;
+    color: white;
+}
+
+.available {
+    color: green;
+    font-weight: bold;
+}
+
+.low {
+    color: orange;
+    font-weight: bold;
+}
+
+.unavailable {
+    color: red;
+    font-weight: bold;
+}
+
+footer {
+    background: #0b3d62;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 30px;
+}
+
+@media(max-width:700px) {
+    input, select, button {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    table {
+        font-size: 12px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>✈️ Online Flight Reservation System</h1>
+    <p>Search • Book • Manage • Cancel Flights</p>
+</header>
+
+<nav>
+    <button onclick="showPage('home')">Home</button>
+    <button onclick="showPage('search')">Search Flight</button>
+    <button onclick="showPage('booking')">Book Ticket</button>
+    <button onclick="showPage('tickets')">My Tickets</button>
+    <button onclick="showPage('pnr')">Booking Status</button>
+    <button onclick="showPage('login')">Login</button>
+    <button onclick="showPage('register')">Register</button>
+    <button onclick="showPage('admin')">Admin</button>
+</nav>
+
+<div class="container">
+
+<div id="message"></div>
+
+
+<!-- HOME -->
+
+<section id="home" class="card page">
+
+    <h2>Welcome to Flight Reservation System</h2>
+
+    <p>
+        This web application allows customers to search flights,
+        check real-time seat availability, book tickets, make payments,
+        view booking history, print tickets and cancel reservations.
+    </p>
+
+    <h3>System Features</h3>
+
+    <ul>
+        <li>Flight Search</li>
+        <li>Class and Destination Filtering</li>
+        <li>Seat Availability</li>
+        <li>Online Payment Simulation</li>
+        <li>Ticket Generation</li>
+        <li>Booking Status</li>
+        <li>Ticket Cancellation</li>
+        <li>Admin Management</li>
+        <li>Customer Feedback</li>
+        <li>Responsive Interface</li>
+    </ul>
+
+</section>
+
+
+<!-- LOGIN -->
+
+<section id="login" class="card page hidden">
+
+    <h2>🔐 User Login</h2>
+
+    <input
+        type="email"
+        id="loginEmail"
+        placeholder="Email">
+
+    <input
+        type="password"
+        id="loginPassword"
+        placeholder="Password">
+
+    <button onclick="login()">Login</button>
+
+    <button onclick="showPage('forgot')">
+        Forgot Password?
+    </button>
+
+    <p>
+        Demo User:
+        <b>user@gmail.com</b> /
+        <b>1234</b>
+    </p>
+
+    <p>
+        Admin:
+        <b>admin@gmail.com</b> /
+        <b>admin123</b>
+    </p>
+
+</section>
+
+
+<!-- FORGOT PASSWORD -->
+
+<section id="forgot" class="card page hidden">
+
+    <h2>🔑 Forgot Password</h2>
+
+    <input
+        type="email"
+        id="forgotEmail"
+        placeholder="Enter registered email">
+
+    <button onclick="forgotPassword()">
+        Reset Password
+    </button>
+
+</section>
+
+
+<!-- REGISTER -->
+
+<section id="register" class="card page hidden">
+
+    <h2>📝 User Registration</h2>
+
+    <input
+        id="regName"
+        placeholder="Full Name">
+
+    <input
+        id="regEmail"
+        placeholder="Email">
+
+    <input
+        id="regPassword"
+        type="password"
+        placeholder="Password">
+
+    <input
+        id="regPhone"
+        placeholder="Phone Number">
+
+    <button onclick="register()">
+        Register
+    </button>
+
+</section>
+
+
+<!-- SEARCH FLIGHT -->
+
+<section id="search" class="card page hidden">
+
+    <h2>🔎 Search Flight</h2>
+
+    <input
+        id="from"
+        placeholder="From">
+
+    <input
+        id="to"
+        placeholder="Destination">
+
+    <input
+        id="flightDate"
+        type="date">
+
+    <select id="flightClass">
+
+        <option value="All">All Classes</option>
+        <option value="Economy">Economy</option>
+        <option value="Business">Business</option>
+        <option value="First">First Class</option>
+
+    </select>
+
+    <button onclick="searchFlights()">
+        Search Flights
+    </button>
+
+    <div id="flightResults"></div>
+
+</section>
+
+
+<!-- BOOKING -->
+
+<section id="booking" class="card page hidden">
+
+    <h2>🎫 Book Flight Ticket</h2>
+
+    <select id="flightSelect">
+
+        <option value="">
+            -- Select Flight --
+        </option>
+
+    </select>
+
+    <br>
+
+    <input
+        id="passenger"
+        placeholder="Passenger Name">
+
+    <input
+        id="age"
+        type="number"
+        placeholder="Age">
+
+    <select id="gender">
+
+        <option value="">
+            Gender
+        </option>
+
+        <option>Male</option>
+        <option>Female</option>
+        <option>Other</option>
+
+    </select>
+
+    <select id="seatClass">
+
+        <option value="">
+            Select Class
+        </option>
+
+        <option>Economy</option>
+        <option>Business</option>
+        <option>First</option>
+
+    </select>
+
+    <select id="seatNumber">
+
+        <option value="">
+            Select Seat
+        </option>
+
+    </select>
+
+    <br>
+
+    <input
+        id="address"
+        placeholder="Shipping / Contact Address">
+
+    <select id="payment">
+
+        <option value="">
+            Payment Method
+        </option>
+
+        <option>Credit Card</option>
+        <option>Debit Card</option>
+        <option>UPI</option>
+        <option>Net Banking</option>
+
+    </select>
+
+    <br><br>
+
+    <button onclick="makePayment()">
+        💳 Proceed to Payment
+    </button>
+
+</section>
+
+
+<!-- PAYMENT -->
+
+<section id="paymentPage" class="card page hidden">
+
+    <h2>💳 Ticket Payment</h2>
+
+    <p id="paymentDetails"></p>
+
+    <input
+        placeholder="Card / UPI Number"
+        id="paymentNumber">
+
+    <input
+        type="password"
+        placeholder="PIN / CVV"
+        id="paymentPin">
+
+    <button onclick="confirmPayment()">
+        Pay Now
+    </button>
+
+</section>
+
+
+<!-- MY TICKETS -->
+
+<section id="tickets" class="card page hidden">
+
+    <h2>🎟️ My Tickets</h2>
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>PNR</th>
+                    <th>Flight</th>
+                    <th>Passenger</th>
+                    <th>Route</th>
+                    <th>Seat</th>
+                    <th>Class</th>
+                    <th>Fare</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+
+            </thead>
+
+            <tbody id="ticketTable"></tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+<!-- PNR STATUS -->
+
+<section id="pnr" class="card page hidden">
+
+    <h2>🔍 View Booking Status</h2>
+
+    <input
+        id="pnrInput"
+        placeholder="Enter PNR Number">
+
+    <button onclick="checkPNR()">
+        Check Status
+    </button>
+
+    <div id="pnrResult"></div>
+
+</section>
+
+
+<!-- FEEDBACK -->
+
+<section id="feedback" class="card page hidden">
+
+    <h2>⭐ Customer Feedback</h2>
+
+    <input
+        id="feedbackName"
+        placeholder="Your Name">
+
+    <select id="rating">
+
+        <option>5 - Excellent</option>
+        <option>4 - Very Good</option>
+        <option>3 - Good</option>
+        <option>2 - Average</option>
+        <option>1 - Poor</option>
+
+    </select>
+
+    <br>
+
+    <textarea
+        id="feedbackText"
+        placeholder="Enter your feedback"
+        rows="5"
+        style="width:90%;padding:10px;">
+    </textarea>
+
+    <br><br>
+
+    <button onclick="submitFeedback()">
+        Submit Feedback
+    </button>
+
+</section>
+
+
+<!-- ADMIN -->
+
+<section id="admin" class="card page hidden">
+
+    <h2>⚙️ Administrator Panel</h2>
+
+    <h3>Add Flight</h3>
+
+    <input
+        id="newFlightNo"
+        placeholder="Flight Number">
+
+    <input
+        id="newAirline"
+        placeholder="Airline">
+
+    <input
+        id="newOrigin"
+        placeholder="Origin">
+
+    <input
+        id="newDestination"
+        placeholder="Destination">
+
+    <input
+        id="newDate"
+        type="date">
+
+    <input
+        id="newTime"
+        type="time">
+
+    <select id="newClass">
+
+        <option>Economy</option>
+        <option>Business</option>
+        <option>First</option>
+
+    </select>
+
+    <input
+        id="newFare"
+        type="number"
+        placeholder="Fare">
+
+    <input
+        id="newSeats"
+        type="number"
+        placeholder="Seats">
+
+    <button onclick="addFlight()">
+        Add Flight
+    </button>
+
+
+    <h3>Manage Flights</h3>
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Flight</th>
+                    <th>Airline</th>
+                    <th>Route</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Class</th>
+                    <th>Fare</th>
+                    <th>Seats</th>
+                </tr>
+
+            </thead>
+
+            <tbody id="adminFlightTable"></tbody>
+
+        </table>
+
+    </div>
+
+
+    <h3>All Bookings</h3>
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>PNR</th>
+                    <th>Passenger</th>
+                    <th>Flight</th>
+                    <th>Fare</th>
+                    <th>Payment</th>
+                    <th>Status</th>
+                </tr>
+
+            </thead>
+
+            <tbody id="adminBookingTable"></tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+</div>
+
+
+<footer>
+
+    Flight Reservation System |
+    Internet Programming Lab
+
+</footer>
+
+
+<script>
+
+/* =====================================
+   FLIGHT DATA
+===================================== */
+
+let flights = [
+
+{
+    no: "AI101",
+    airline: "Air India",
+    from: "Chennai",
+    to: "Delhi",
+    date: "2026-09-01",
+    time: "06:30",
+    class: "Economy",
+    fare: 5500,
+    seats: 35
+},
+
+{
+    no: "6E202",
+    airline: "IndiGo",
+    from: "Chennai",
+    to: "Mumbai",
+    date: "2026-09-01",
+    time: "09:00",
+    class: "Economy",
+    fare: 4200,
+    seats: 28
+},
+
+{
+    no: "UK303",
+    airline: "Vistara",
+    from: "Chennai",
+    to: "Bangalore",
+    date: "2026-09-01",
+    time: "11:30",
+    class: "Business",
+    fare: 7500,
+    seats: 15
+},
+
+{
+    no: "AI404",
+    airline: "Air India",
+    from: "Delhi",
+    to: "Chennai",
+    date: "2026-09-02",
+    time: "14:00",
+    class: "Economy",
+    fare: 5800,
+    seats: 40
+},
+
+{
+    no: "6E505",
+    airline: "IndiGo",
+    from: "Bangalore",
+    to: "Chennai",
+    date: "2026-09-02",
+    time: "18:00",
+    class: "Economy",
+    fare: 3900,
+    seats: 22
+}
+
+];
+
+
+let bookings = [];
+
+let currentUser = null;
+
+let selectedFlight = null;
+
+
+/* =====================================
+   PAGE NAVIGATION
+===================================== */
+
+function showPage(page) {
+
+    document
+    .querySelectorAll(".page")
+    .forEach(function(p) {
+
+        p.classList.add("hidden");
+
+    });
+
+    document
+    .getElementById(page)
+    .classList.remove("hidden");
+
+
+    if(page === "booking") {
+
+        loadFlightSelect();
+
+    }
+
+
+    if(page === "tickets") {
+
+        displayTickets();
+
+    }
+
+
+    if(page === "admin") {
+
+        displayAdminFlights();
+        displayAdminBookings();
+
+    }
+
+}
+
+
+/* =====================================
+   MESSAGE
+===================================== */
+
+function showMessage(text) {
+
+    document.getElementById("message").innerHTML =
+        "<div class='message'>" + text + "</div>";
+
+}
+
+
+/* =====================================
+   REGISTER
+===================================== */
+
+function register() {
+
+    let name =
+        document.getElementById("regName").value;
+
+    let email =
+        document.getElementById("regEmail").value;
+
+    let password =
+        document.getElementById("regPassword").value;
+
+    let phone =
+        document.getElementById("regPhone").value;
+
+
+    if(
+        name === "" ||
+        email === "" ||
+        password === "" ||
+        phone === ""
+    ) {
+
+        alert("Please fill all fields.");
+        return;
+
+    }
+
+
+    showMessage(
+        "Registration successful! Please login."
+    );
+
+    showPage("login");
+
+}
+
+
+/* =====================================
+   LOGIN
+===================================== */
+
+function login() {
+
+    let email =
+        document.getElementById("loginEmail").value;
+
+    let password =
+        document.getElementById("loginPassword").value;
+
+
+    if(
+        email === "admin@gmail.com" &&
+        password === "admin123"
+    ) {
+
+        currentUser = "admin";
+
+        showMessage("Administrator login successful.");
+
+        showPage("admin");
+
+        return;
+
+    }
+
+
+    if(
+        email === "user@gmail.com" &&
+        password === "1234"
+    ) {
+
+        currentUser = "user";
+
+        showMessage("User login successful.");
+
+        showPage("home");
+
+        return;
+
+    }
+
+
+    alert("Invalid email or password.");
+
+}
+
+
+/* =====================================
+   FORGOT PASSWORD
+===================================== */
+
+function forgotPassword() {
+
+    let email =
+        document.getElementById("forgotEmail").value;
+
+
+    if(email === "") {
+
+        alert("Enter your email.");
+        return;
+
+    }
+
+
+    alert(
+        "Password reset link has been sent to " +
+        email
+    );
+
+}
+
+
+/* =====================================
+   SEARCH FLIGHTS
+===================================== */
+
+function searchFlights() {
+
+    let from =
+        document.getElementById("from")
+        .value.toLowerCase();
+
+    let to =
+        document.getElementById("to")
+        .value.toLowerCase();
+
+    let date =
+        document.getElementById("flightDate")
+        .value;
+
+    let flightClass =
+        document.getElementById("flightClass")
+        .value;
+
+
+    let result = flights.filter(function(f) {
+
+        return (
+            f.from.toLowerCase() === from &&
+            f.to.toLowerCase() === to &&
+            f.date === date &&
+            (
+                flightClass === "All" ||
+                f.class === flightClass
+            )
+        );
+
+    });
+
+
+    let html = "";
+
+
+    if(result.length === 0) {
+
+        html =
+            "<p>No flights available for the selected criteria.</p>";
+
+    }
+    else {
+
+        html += `
+
+        <div class="table-container">
+
+        <table>
+
+        <tr>
+            <th>Flight</th>
+            <th>Airline</th>
+            <th>Route</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Class</th>
+            <th>Fare</th>
+            <th>Seats</th>
+            <th>Action</th>
+        </tr>
+
+        `;
+
+
+        result.forEach(function(f) {
+
+            let index = flights.indexOf(f);
+
+            let seatClass =
+                f.seats > 10
+                ? "available"
+                : f.seats > 0
+                ? "low"
+                : "unavailable";
+
+
+            html += `
+
+            <tr>
+
+                <td>${f.no}</td>
+
+                <td>${f.airline}</td>
+
+                <td>
+                    ${f.from} → ${f.to}
+                </td>
+
+                <td>${f.date}</td>
+
+                <td>${f.time}</td>
+
+                <td>${f.class}</td>
+
+                <td>₹${f.fare}</td>
+
+                <td class="${seatClass}">
+                    ${f.seats}
+                </td>
+
+                <td>
+
+                    <button
+                    onclick="selectFlight(${index})">
+
+                    Book
+
+                    </button>
+
+                </td>
+
+            </tr>
+
+            `;
+
+        });
+
+
+        html += "</table></div>";
+
+    }
+
+
+    document.getElementById("flightResults").innerHTML =
+        html;
+
+}
+
+
+/* =====================================
+   SELECT FLIGHT
+===================================== */
+
+function selectFlight(index) {
+
+    selectedFlight = index;
+
+    showPage("booking");
+
+    loadFlightSelect();
+
+    document.getElementById("flightSelect").value =
+        index;
+
+}
+
+
+/* =====================================
+   LOAD FLIGHT SELECT
+===================================== */
+
+function loadFlightSelect() {
+
+    let select =
+        document.getElementById("flightSelect");
+
+
+    select.innerHTML =
+        "<option value=''>-- Select Flight --</option>";
+
+
+    flights.forEach(function(f, index) {
+
+        if(f.seats > 0) {
+
+            select.innerHTML += `
+
+            <option value="${index}">
+
+                ${f.no} -
+                ${f.airline} -
+                ${f.from} →
+                ${f.to} -
+                ₹${f.fare} -
+                ${f.seats} seats
+
+            </option>
+
+            `;
+
+        }
+
+    });
+
+}
+
+
+/* =====================================
+   PAYMENT PAGE
+===================================== */
+
+function makePayment() {
+
+    if(!currentUser) {
+
+        alert("Please login first.");
+
+        showPage("login");
+
+        return;
+
+    }
+
+
+    let flightIndex =
+        document.getElementById("flightSelect").value;
+
+    let passenger =
+        document.getElementById("passenger").value;
+
+    let age =
+        document.getElementById("age").value;
+
+    let gender =
+        document.getElementById("gender").value;
+
+    let seatClass =
+        document.getElementById("seatClass").value;
+
+    let seat =
+        document.getElementById("seatNumber").value;
+
+    let address =
+        document.getElementById("address").value;
+
+    let payment =
+        document.getElementById("payment").value;
+
+
+    if(
+        flightIndex === "" ||
+        passenger === "" ||
+        age === "" ||
+        gender === "" ||
+        seatClass === "" ||
+        address === "" ||
+        payment === ""
+    ) {
+
+        alert("Please fill all passenger details.");
+        return;
+
+    }
+
+
+    if(!seat) {
+
+        alert("Please select a seat.");
+        return;
+
+    }
+
+
+    selectedFlight = Number(flightIndex);
+
+
+    let f = flights[selectedFlight];
+
+
+    document.getElementById("paymentDetails").innerHTML =
+
+        "<b>Flight:</b> " +
+        f.no + " - " + f.airline +
+        "<br><b>Passenger:</b> " +
+        passenger +
+        "<br><b>Route:</b> " +
+        f.from + " → " + f.to +
+        "<br><b>Seat:</b> " +
+        seat +
+        "<br><b>Fare:</b> ₹" +
+        f.fare;
+
+
+    showPage("paymentPage");
+
+}
+
+
+/* =====================================
+   CONFIRM PAYMENT
+===================================== */
+
+function confirmPayment() {
+
+    let number =
+        document.getElementById("paymentNumber").value;
+
+    let pin =
+        document.getElementById("paymentPin").value;
+
+
+    if(number === "" || pin === "") {
+
+        alert("Enter payment details.");
+        return;
+
+    }
+
+
+    let f = flights[selectedFlight];
+
+
+    if(f.seats <= 0) {
+
+        alert("No seats available.");
+        return;
+
+    }
+
+
+    let pnr =
+        "FL" +
+        Math.floor(
+            100000 + Math.random() * 900000
+        );
+
+
+    let booking = {
+
+        pnr: pnr,
+
+        flight: f.no,
+
+        airline: f.airline,
+
+        passenger:
+            document.getElementById("passenger").value,
+
+        age:
+            document.getElementById("age").value,
+
+        gender:
+            document.getElementById("gender").value,
+
+        from: f.from,
+
+        to: f.to,
+
+        date: f.date,
+
+        time: f.time,
+
+        class:
+            document.getElementById("seatClass").value,
+
+        seat:
+            document.getElementById("seatNumber").value,
+
+        fare: f.fare,
+
+        payment:
+            document.getElementById("payment").value,
+
+        address:
+            document.getElementById("address").value,
+
+        status: "CONFIRMED"
+
+    };
+
+
+    bookings.push(booking);
+
+
+    f.seats--;
+
+
+    alert(
+        "Payment Successful!\n\n" +
+        "PNR: " + pnr +
+        "\nFlight: " + f.no +
+        "\nPassenger: " + booking.passenger +
+        "\nSeat: " + booking.seat
+    );
+
+
+    showMessage(
+        "Ticket booked successfully! PNR: " + pnr
+    );
+
+
+    showPage("tickets");
+
+}
+
+
+/* =====================================
+   SEAT SELECTION
+===================================== */
+
+document
+.getElementById("flightSelect")
+.addEventListener("change", function() {
+
+    let index = this.value;
+
+    let seatSelect =
+        document.getElementById("seatNumber");
+
+
+    seatSelect.innerHTML =
+        "<option value=''>Select Seat</option>";
+
+
+    if(index === "") {
+        return;
+    }
+
+
+    let seats =
+        flights[index].seats;
+
+
+    for(let i = 1; i <= Math.min(seats, 20); i++) {
+
+        seatSelect.innerHTML +=
+            "<option>Seat " + i + "</option>";
+
+    }
+
+});
+
+
+/* =====================================
+   DISPLAY TICKETS
+===================================== */
+
+function displayTickets() {
+
+    let table =
+        document.getElementById("ticketTable");
+
+
+    table.innerHTML = "";
+
+
+    if(bookings.length === 0) {
+
+        table.innerHTML =
+            "<tr><td colspan='9'>No tickets found.</td></tr>";
+
+        return;
+
+    }
+
+
+    bookings.forEach(function(b, index) {
+
+        table.innerHTML += `
+
+        <tr>
+
+            <td>${b.pnr}</td>
+
+            <td>
+                ${b.flight} -
+                ${b.airline}
+            </td>
+
+            <td>${b.passenger}</td>
+
+            <td>
+                ${b.from} →
+                ${b.to}
+            </td>
+
+            <td>${b.seat}</td>
+
+            <td>${b.class}</td>
+
+            <td>₹${b.fare}</td>
+
+            <td>${b.status}</td>
+
+            <td>
+
+                ${
+                    b.status === "CONFIRMED"
+
+                    ?
+
+                    `<button
+                    class="danger"
+                    onclick="cancelTicket(${index})">
+
+                    Cancel
+
+                    </button>`
+
+                    :
+
+                    `<button
+                    onclick="printTicket(${index})">
+
+                    Print
+
+                    </button>`
+                }
+
+            </td>
+
+        </tr>
+
+        `;
+
+    });
+
+}
+
+
+/* =====================================
+   CHECK PNR
+===================================== */
+
+function checkPNR() {
+
+    let pnr =
+        document.getElementById("pnrInput")
+        .value
+        .toUpperCase();
+
+
+    let booking =
+        bookings.find(function(b) {
+
+            return b.pnr === pnr;
+
+        });
+
+
+    let result =
+        document.getElementById("pnrResult");
+
+
+    if(!booking) {
+
+        result.innerHTML =
+            "<p>❌ PNR not found.</p>";
+
+        return;
+
+    }
+
+
+    result.innerHTML = `
+
+        <table>
+
+        <tr>
+            <th>PNR</th>
+            <th>Flight</th>
+            <th>Passenger</th>
+            <th>Route</th>
+            <th>Seat</th>
+            <th>Status</th>
+        </tr>
+
+        <tr>
+
+            <td>${booking.pnr}</td>
+
+            <td>
+                ${booking.flight} -
+                ${booking.airline}
+            </td>
+
+            <td>${booking.passenger}</td>
+
+            <td>
+                ${booking.from} →
+                ${booking.to}
+            </td>
+
+            <td>${booking.seat}</td>
+
+            <td>${booking.status}</td>
+
+        </tr>
+
+        </table>
+
+    `;
+
+}
+
+
+/* =====================================
+   CANCEL TICKET
+===================================== */
+
+function cancelTicket(index) {
+
+    let b = bookings[index];
+
+
+    if(!confirm(
+        "Cancel ticket " + b.pnr + "?"
+    )) {
+
+        return;
+
+    }
+
+
+    b.status = "CANCELLED";
+
+
+    let flight =
+        flights.find(function(f) {
+
+            return f.no === b.flight;
+
+        });
+
+
+    if(flight) {
+
+        flight.seats++;
+
+    }
+
+
+    let refund =
+        b.fare * 0.80;
+
+
+    alert(
+        "Ticket Cancelled!\n\n" +
+        "PNR: " + b.pnr +
+        "\nRefund: ₹" +
+        refund.toFixed(2)
+    );
+
+
+    showMessage(
+        "Ticket cancelled. Refund: ₹" +
+        refund.toFixed(2)
+    );
+
+
+    displayTickets();
+
+}
+
+
+/* =====================================
+   PRINT TICKET
+===================================== */
+
+function printTicket(index) {
+
+    let b = bookings[index];
+
+
+    let ticket = `
+
+    <html>
+
+    <head>
+
+    <title>Flight E-Ticket</title>
+
+    <style>
+
+    body {
+        font-family: Arial;
+        padding: 30px;
+    }
+
+    .ticket {
+        max-width: 650px;
+        margin: auto;
+        padding: 25px;
+        border: 2px solid #0b3d62;
+    }
+
+    h1 {
+        color: #0b3d62;
+    }
+
+    </style>
+
+    </head>
+
+    <body>
+
+    <div class="ticket">
+
+        <h1>✈️ Flight E-Ticket</h1>
+
+        <hr>
+
+        <h2>PNR: ${b.pnr}</h2>
+
+        <p>
+        <b>Passenger:</b>
+        ${b.passenger}
+        </p>
+
+        <p>
+        <b>Flight:</b>
+        ${b.flight} - ${b.airline}
+        </p>
+
+        <p>
+        <b>Route:</b>
+        ${b.from} → ${b.to}
+        </p>
+
+        <p>
+        <b>Date:</b>
+        ${b.date}
+        </p>
+
+        <p>
+        <b>Time:</b>
+        ${b.time}
+        </p>
+
+        <p>
+        <b>Class:</b>
+        ${b.class}
+        </p>
+
+        <p>
+        <b>Seat:</b>
+        ${b.seat}
+        </p>
+
+        <p>
+        <b>Fare:</b>
+        ₹${b.fare}
+        </p>
+
+        <p>
+        <b>Payment:</b>
+        ${b.payment}
+        </p>
+
+        <p>
+        <b>Status:</b>
+        ${b.status}
+        </p>
+
+        <hr>
+
+        <h3>
+        Thank you for booking with us!
+        </h3>
+
+    </div>
+
+    <script>
+        window.print();
+    <\/script>
+
+    </body>
+
+    </html>
+
+    `;
+
+
+    let win =
+        window.open("", "_blank");
+
+
+    win.document.write(ticket);
+
+    win.document.close();
+
+}
+
+
+/* =====================================
+   ADD FLIGHT - ADMIN
+===================================== */
+
+function addFlight() {
+
+    if(currentUser !== "admin") {
+
+        alert("Admin login required.");
+        return;
+
+    }
+
+
+    let flight = {
+
+        no:
+            document.getElementById("newFlightNo").value,
+
+        airline:
+            document.getElementById("newAirline").value,
+
+        from:
+            document.getElementById("newOrigin").value,
+
+        to:
+            document.getElementById("newDestination").value,
+
+        date:
+            document.getElementById("newDate").value,
+
+        time:
+            document.getElementById("newTime").value,
+
+        class:
+            document.getElementById("newClass").value,
+
+        fare:
+            Number(
+                document.getElementById("newFare").value
+            ),
+
+        seats:
+            Number(
+                document.getElementById("newSeats").value
+            )
+
+    };
+
+
+    if(
+        flight.no === "" ||
+        flight.airline === "" ||
+        flight.from === "" ||
+        flight.to === "" ||
+        flight.date === "" ||
+        flight.time === "" ||
+        flight.fare <= 0 ||
+        flight.seats <= 0
+    ) {
+
+        alert("Enter all flight details.");
+        return;
+
+    }
+
+
+    flights.push(flight);
+
+
+    showMessage(
+        "Flight added successfully."
+    );
+
+
+    displayAdminFlights();
+
+}
+
+
+/* =====================================
+   ADMIN FLIGHT TABLE
+===================================== */
+
+function displayAdminFlights() {
+
+    let table =
+        document.getElementById(
+            "adminFlightTable"
+        );
+
+
+    table.innerHTML = "";
+
+
+    flights.forEach(function(f) {
+
+        table.innerHTML += `
+
+        <tr>
+
+            <td>${f.no}</td>
+
+            <td>${f.airline}</td>
+
+            <td>
+                ${f.from} →
+                ${f.to}
+            </td>
+
+            <td>${f.date}</td>
+
+            <td>${f.time}</td>
+
+            <td>${f.class}</td>
+
+            <td>₹${f.fare}</td>
+
+            <td>${f.seats}</td>
+
+        </tr>
+
+        `;
+
+    });
+
+}
+
+
+/* =====================================
+   ADMIN BOOKINGS
+===================================== */
+
+function displayAdminBookings() {
+
+    let table =
+        document.getElementById(
+            "adminBookingTable"
+        );
+
+
+    table.innerHTML = "";
+
+
+    bookings.forEach(function(b) {
+
+        table.innerHTML += `
+
+        <tr>
+
+            <td>${b.pnr}</td>
+
+            <td>${b.passenger}</td>
+
+            <td>
+                ${b.flight} -
+                ${b.airline}
+            </td>
+
+            <td>₹${b.fare}</td>
+
+            <td>${b.payment}</td>
+
+            <td>${b.status}</td>
+
+        </tr>
+
+        `;
+
+    });
+
+}
+
+
+/* =====================================
+   FEEDBACK
+===================================== */
+
+function submitFeedback() {
+
+    let name =
+        document.getElementById("feedbackName").value;
+
+    let rating =
+        document.getElementById("rating").value;
+
+    let feedback =
+        document.getElementById("feedbackText").value;
+
+
+    if(name === "" || feedback === "") {
+
+        alert("Please enter all feedback details.");
+        return;
+
+    }
+
+
+    alert(
+        "Thank you " + name +
+        "!\nRating: " + rating +
+        "\nYour feedback has been submitted."
+    );
+
+}
+
+
+/* =====================================
+   INITIALIZATION
+===================================== */
+
+displayAdminFlights();
+
+displayAdminBookings();
+
+</script>
+
+</body>
+</html>

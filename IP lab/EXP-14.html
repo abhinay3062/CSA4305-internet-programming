@@ -1,0 +1,1756 @@
+# Online Beauty Parlour Appointment Booking System
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beauty Parlour Appointment System</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #fff5fa;
+    color: #333;
+}
+
+header {
+    background: #b83280;
+    color: white;
+    text-align: center;
+    padding: 25px;
+}
+
+nav {
+    background: #70245c;
+    padding: 12px;
+    text-align: center;
+}
+
+nav button {
+    background: transparent;
+    border: none;
+    color: white;
+    margin: 5px 12px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.container {
+    width: 92%;
+    max-width: 1100px;
+    margin: 25px auto;
+}
+
+.card {
+    background: white;
+    padding: 22px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px #ddd;
+}
+
+h2 {
+    color: #b83280;
+}
+
+input, select, textarea {
+    padding: 11px;
+    margin: 6px;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 5px;
+    background: #b83280;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #8e2865;
+}
+
+.danger {
+    background: #dc3545;
+}
+
+.success {
+    background: #198754;
+}
+
+.hidden {
+    display: none;
+}
+
+.message {
+    background: #d1e7dd;
+    color: #155724;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.services {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+}
+
+.service {
+    background: #fff0f7;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.service h3 {
+    color: #b83280;
+}
+
+.price {
+    color: #b83280;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background: #b83280;
+    color: white;
+}
+
+.available {
+    color: green;
+    font-weight: bold;
+}
+
+.unavailable {
+    color: red;
+    font-weight: bold;
+}
+
+footer {
+    background: #70245c;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 30px;
+}
+
+@media(max-width:700px) {
+    input, select, textarea, button {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    table {
+        font-size: 12px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>💇 Beauty Parlour Appointment System</h1>
+    <p>Find • Select • Book • Manage Your Appointment</p>
+</header>
+
+<nav>
+    <button onclick="showPage('home')">Home</button>
+    <button onclick="showPage('services')">Services</button>
+    <button onclick="showPage('booking')">Book Appointment</button>
+    <button onclick="showPage('calendar')">Calendar</button>
+    <button onclick="showPage('dashboard')">My Account</button>
+    <button onclick="showPage('feedback')">Feedback</button>
+    <button onclick="showPage('login')">Login</button>
+    <button onclick="showPage('admin')">Manager</button>
+</nav>
+
+<div class="container">
+
+<div id="message"></div>
+
+<!-- HOME -->
+
+<section id="home" class="card page">
+
+<h2>Welcome to Beauty Parlour</h2>
+
+<p>
+Find your preferred beauty parlour, choose a service and stylist,
+select an available date and time, and book your appointment online.
+</p>
+
+<h3>Available Features</h3>
+
+<ul>
+<li>Browse Beauty Services</li>
+<li>View Stylist Profiles</li>
+<li>Check Appointment Slots</li>
+<li>Online Appointment Booking</li>
+<li>Reservation Calendar</li>
+<li>Reschedule and Cancel Appointments</li>
+<li>Online Payment / Deposit</li>
+<li>Customer Dashboard</li>
+<li>Manager and Staff Dashboard</li>
+<li>Customer Feedback</li>
+</ul>
+
+</section>
+
+
+<!-- LOGIN -->
+
+<section id="login" class="card page hidden">
+
+<h2>🔐 Customer Login</h2>
+
+<input
+id="loginEmail"
+placeholder="Email">
+
+<input
+id="loginPassword"
+type="password"
+placeholder="Password">
+
+<button onclick="login()">
+Login
+</button>
+
+<p>
+Demo Customer:
+<b>customer@gmail.com</b> /
+<b>1234</b>
+</p>
+
+<p>
+Manager:
+<b>admin@salon.com</b> /
+<b>admin123</b>
+</p>
+
+</section>
+
+
+<!-- REGISTER -->
+
+<section id="register" class="card page hidden">
+
+<h2>📝 Customer Registration</h2>
+
+<input
+id="regName"
+placeholder="Full Name">
+
+<input
+id="regEmail"
+placeholder="Email">
+
+<input
+id="regPhone"
+placeholder="Phone Number">
+
+<input
+id="regPassword"
+type="password"
+placeholder="Password">
+
+<button onclick="register()">
+Register
+</button>
+
+</section>
+
+
+<!-- SERVICES -->
+
+<section id="services" class="card page hidden">
+
+<h2>💄 Beauty Services</h2>
+
+<div class="services">
+
+<div class="service">
+<h3>Haircut</h3>
+<p>Professional haircut and styling.</p>
+<p class="price">₹500</p>
+<button onclick="selectService('Haircut',500)">Book</button>
+</div>
+
+<div class="service">
+<h3>Hair Spa</h3>
+<p>Relaxing hair spa treatment.</p>
+<p class="price">₹900</p>
+<button onclick="selectService('Hair Spa',900)">Book</button>
+</div>
+
+<div class="service">
+<h3>Facial</h3>
+<p>Complete facial and skin treatment.</p>
+<p class="price">₹1200</p>
+<button onclick="selectService('Facial',1200)">Book</button>
+</div>
+
+<div class="service">
+<h3>Manicure</h3>
+<p>Professional nail care treatment.</p>
+<p class="price">₹600</p>
+<button onclick="selectService('Manicure',600)">Book</button>
+</div>
+
+<div class="service">
+<h3>Pedicure</h3>
+<p>Relaxing foot and nail treatment.</p>
+<p class="price">₹700</p>
+<button onclick="selectService('Pedicure',700)">Book</button>
+</div>
+
+<div class="service">
+<h3>Bridal Makeup</h3>
+<p>Complete bridal makeup package.</p>
+<p class="price">₹5000</p>
+<button onclick="selectService('Bridal Makeup',5000)">Book</button>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- BOOKING -->
+
+<section id="booking" class="card page hidden">
+
+<h2>📅 Book Appointment</h2>
+
+<label>Service</label>
+
+<select id="service">
+
+<option value="">Select Service</option>
+<option value="Haircut|500">Haircut - ₹500</option>
+<option value="Hair Spa|900">Hair Spa - ₹900</option>
+<option value="Facial|1200">Facial - ₹1200</option>
+<option value="Manicure|600">Manicure - ₹600</option>
+<option value="Pedicure|700">Pedicure - ₹700</option>
+<option value="Bridal Makeup|5000">Bridal Makeup - ₹5000</option>
+
+</select>
+
+<br>
+
+<label>Stylist</label>
+
+<select id="stylist">
+
+<option value="">Select Stylist</option>
+<option>Priya - Hair Specialist</option>
+<option>Anjali - Makeup Artist</option>
+<option>Meena - Skin Specialist</option>
+<option>Divya - Nail Artist</option>
+
+</select>
+
+<br>
+
+<label>Date</label>
+
+<input
+id="appointmentDate"
+type="date">
+
+<label>Time</label>
+
+<select id="appointmentTime">
+
+<option value="">Select Time</option>
+<option>09:00 AM</option>
+<option>10:00 AM</option>
+<option>11:00 AM</option>
+<option>12:00 PM</option>
+<option>02:00 PM</option>
+<option>03:00 PM</option>
+<option>04:00 PM</option>
+<option>05:00 PM</option>
+<option>06:00 PM</option>
+
+</select>
+
+<br>
+
+<label>Payment Type</label>
+
+<select id="paymentType">
+
+<option value="">Select Payment</option>
+<option>Full Payment</option>
+<option>50% Deposit</option>
+
+</select>
+
+<br>
+
+<button onclick="bookAppointment()">
+Confirm Appointment
+</button>
+
+</section>
+
+
+<!-- PAYMENT -->
+
+<section id="payment" class="card page hidden">
+
+<h2>💳 Online Payment</h2>
+
+<p id="paymentDetails"></p>
+
+<select id="paymentMethod">
+
+<option>UPI</option>
+<option>Credit Card</option>
+<option>Debit Card</option>
+<option>PayPal</option>
+<option>Stripe</option>
+
+</select>
+
+<input
+id="paymentNumber"
+placeholder="Payment Number">
+
+<input
+id="paymentPin"
+type="password"
+placeholder="PIN / CVV">
+
+<button onclick="completePayment()">
+Make Payment
+</button>
+
+</section>
+
+
+<!-- CALENDAR -->
+
+<section id="calendar" class="card page hidden">
+
+<h2>📆 Reservations Calendar</h2>
+
+<input
+id="calendarDate"
+type="date"
+onchange="showCalendarReservations()">
+
+<div id="calendarReservations"></div>
+
+</section>
+
+
+<!-- DASHBOARD -->
+
+<section id="dashboard" class="card page hidden">
+
+<h2>👤 Customer Dashboard</h2>
+
+<h3>Upcoming Reservations</h3>
+
+<div id="upcoming"></div>
+
+<h3>Reservation History</h3>
+
+<div class="table-container">
+
+<table>
+
+<thead>
+
+<tr>
+<th>ID</th>
+<th>Service</th>
+<th>Stylist</th>
+<th>Date</th>
+<th>Time</th>
+<th>Payment</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+
+</thead>
+
+<tbody id="reservationTable"></tbody>
+
+</table>
+
+</div>
+
+<h3>Personal Data</h3>
+
+<p>
+Name: <b id="customerName">Customer</b>
+</p>
+
+<p>
+Email: <b id="customerEmail">customer@gmail.com</b>
+</p>
+
+</section>
+
+
+<!-- FEEDBACK -->
+
+<section id="feedback" class="card page hidden">
+
+<h2>⭐ Customer Feedback</h2>
+
+<input
+id="feedbackName"
+placeholder="Your Name">
+
+<select id="rating">
+
+<option>5 - Excellent</option>
+<option>4 - Very Good</option>
+<option>3 - Good</option>
+<option>2 - Average</option>
+<option>1 - Poor</option>
+
+</select>
+
+<br>
+
+<textarea
+id="feedbackText"
+rows="5"
+style="width:90%;"
+placeholder="Share your experience">
+</textarea>
+
+<br><br>
+
+<button onclick="submitFeedback()">
+Submit Feedback
+</button>
+
+</section>
+
+
+<!-- ADMIN / MANAGER -->
+
+<section id="admin" class="card page hidden">
+
+<h2>⚙️ Salon Manager / Staff Panel</h2>
+
+<h3>Upcoming Reservations</h3>
+
+<div id="adminUpcoming"></div>
+
+
+<h3>Reservation Calendar</h3>
+
+<table>
+
+<thead>
+
+<tr>
+<th>ID</th>
+<th>Customer</th>
+<th>Service</th>
+<th>Stylist</th>
+<th>Date</th>
+<th>Time</th>
+<th>Status</th>
+</tr>
+
+</thead>
+
+<tbody id="adminReservationTable"></tbody>
+
+</table>
+
+
+<h3>Add Reservation</h3>
+
+<input
+id="adminCustomer"
+placeholder="Customer Name">
+
+<select id="adminService">
+
+<option>Haircut</option>
+<option>Hair Spa</option>
+<option>Facial</option>
+<option>Manicure</option>
+<option>Pedicure</option>
+<option>Bridal Makeup</option>
+
+</select>
+
+<input
+id="adminDate"
+type="date">
+
+<select id="adminTime">
+
+<option>09:00 AM</option>
+<option>10:00 AM</option>
+<option>11:00 AM</option>
+<option>12:00 PM</option>
+<option>02:00 PM</option>
+<option>03:00 PM</option>
+<option>04:00 PM</option>
+<option>05:00 PM</option>
+
+</select>
+
+<button onclick="adminAddReservation()">
+Add Reservation
+</button>
+
+
+<h3>Manage Reservations</h3>
+
+<div id="adminManage"></div>
+
+
+<h3>Customer Feedback</h3>
+
+<div id="adminFeedback"></div>
+
+
+<h3>Payment Report</h3>
+
+<div id="adminReport"></div>
+
+</section>
+
+</div>
+
+
+<footer>
+Beauty Parlour Appointment System |
+Internet Programming Lab
+</footer>
+
+
+<script>
+
+/* ===========================
+   DATA
+=========================== */
+
+let reservations = [];
+
+let feedbacks = [];
+
+let currentUser = null;
+
+let selectedService = "";
+
+
+/* ===========================
+   PAGE NAVIGATION
+=========================== */
+
+function showPage(page) {
+
+document
+.querySelectorAll(".page")
+.forEach(function(p) {
+
+p.classList.add("hidden");
+
+});
+
+document
+.getElementById(page)
+.classList.remove("hidden");
+
+
+if(page === "dashboard") {
+
+displayReservations();
+
+}
+
+if(page === "calendar") {
+
+showCalendarReservations();
+
+}
+
+if(page === "admin") {
+
+displayAdmin();
+
+}
+
+}
+
+
+/* ===========================
+   MESSAGE
+=========================== */
+
+function message(text) {
+
+document.getElementById("message").innerHTML =
+
+"<div class='message'>" +
+text +
+"</div>";
+
+}
+
+
+/* ===========================
+   REGISTER
+=========================== */
+
+function register() {
+
+let name =
+document.getElementById("regName").value;
+
+let email =
+document.getElementById("regEmail").value;
+
+let phone =
+document.getElementById("regPhone").value;
+
+let password =
+document.getElementById("regPassword").value;
+
+
+if(
+name === "" ||
+email === "" ||
+phone === "" ||
+password === ""
+) {
+
+alert("Please fill all fields.");
+
+return;
+
+}
+
+
+message("Registration successful.");
+
+showPage("login");
+
+}
+
+
+/* ===========================
+   LOGIN
+=========================== */
+
+function login() {
+
+let email =
+document.getElementById("loginEmail").value;
+
+let password =
+document.getElementById("loginPassword").value;
+
+
+if(
+email === "admin@salon.com" &&
+password === "admin123"
+) {
+
+currentUser = "admin";
+
+message("Manager login successful.");
+
+showPage("admin");
+
+return;
+
+}
+
+
+if(
+email === "customer@gmail.com" &&
+password === "1234"
+) {
+
+currentUser = "customer";
+
+document.getElementById(
+"customerName"
+).innerText = "Customer";
+
+document.getElementById(
+"customerEmail"
+).innerText = email;
+
+message("Customer login successful.");
+
+showPage("home");
+
+return;
+
+}
+
+
+alert("Invalid login details.");
+
+}
+
+
+/* ===========================
+   SERVICE SELECTION
+=========================== */
+
+function selectService(name, price) {
+
+document.getElementById("service").value =
+name + "|" + price;
+
+showPage("booking");
+
+}
+
+
+/* ===========================
+   BOOK APPOINTMENT
+=========================== */
+
+function bookAppointment() {
+
+if(!currentUser) {
+
+alert("Please login first.");
+
+showPage("login");
+
+return;
+
+}
+
+
+let serviceValue =
+document.getElementById("service").value;
+
+let stylist =
+document.getElementById("stylist").value;
+
+let date =
+document.getElementById("appointmentDate").value;
+
+let time =
+document.getElementById("appointmentTime").value;
+
+let paymentType =
+document.getElementById("paymentType").value;
+
+
+if(
+serviceValue === "" ||
+stylist === "" ||
+date === "" ||
+time === "" ||
+paymentType === ""
+) {
+
+alert("Please fill all appointment details.");
+
+return;
+
+}
+
+
+/* Check unavailable slot */
+
+let duplicate =
+reservations.find(function(r) {
+
+return (
+r.date === date &&
+r.time === time &&
+r.stylist === stylist &&
+r.status !== "Cancelled"
+);
+
+});
+
+
+if(duplicate) {
+
+alert(
+"This stylist is unavailable at the selected time."
+);
+
+return;
+
+}
+
+
+let parts =
+serviceValue.split("|");
+
+
+let service =
+parts[0];
+
+let price =
+Number(parts[1]);
+
+
+selectedService = {
+
+service: service,
+
+price: price,
+
+stylist: stylist,
+
+date: date,
+
+time: time,
+
+paymentType: paymentType
+
+};
+
+
+let amount =
+paymentType === "50% Deposit"
+? price / 2
+: price;
+
+
+document.getElementById(
+"paymentDetails"
+).innerHTML =
+
+"<b>Service:</b> " +
+service +
+
+"<br><b>Stylist:</b> " +
+stylist +
+
+"<br><b>Date:</b> " +
+date +
+
+"<br><b>Time:</b> " +
+time +
+
+"<br><b>Amount:</b> ₹" +
+amount;
+
+
+showPage("payment");
+
+}
+
+
+/* ===========================
+   PAYMENT
+=========================== */
+
+function completePayment() {
+
+let number =
+document.getElementById(
+"paymentNumber"
+).value;
+
+let pin =
+document.getElementById(
+"paymentPin"
+).value;
+
+
+if(number === "" || pin === "") {
+
+alert("Enter payment details.");
+
+return;
+
+}
+
+
+let r = {
+
+id:
+"APT" +
+Math.floor(
+1000 +
+Math.random() * 9000
+),
+
+customer:
+"Customer",
+
+service:
+selectedService.service,
+
+price:
+selectedService.price,
+
+stylist:
+selectedService.stylist,
+
+date:
+selectedService.date,
+
+time:
+selectedService.time,
+
+payment:
+selectedService.paymentType,
+
+status:
+"Confirmed"
+
+};
+
+
+reservations.push(r);
+
+
+alert(
+"Appointment booked successfully!\n\n" +
+"Appointment ID: " +
+r.id
+);
+
+
+message(
+"Appointment confirmed. ID: " +
+r.id
+);
+
+
+showPage("dashboard");
+
+}
+
+
+/* ===========================
+   DISPLAY RESERVATIONS
+=========================== */
+
+function displayReservations() {
+
+let table =
+document.getElementById(
+"reservationTable"
+);
+
+table.innerHTML = "";
+
+
+if(reservations.length === 0) {
+
+table.innerHTML =
+"<tr><td colspan='8'>No reservations.</td></tr>";
+
+return;
+
+}
+
+
+reservations.forEach(function(r,index) {
+
+table.innerHTML += `
+
+<tr>
+
+<td>${r.id}</td>
+
+<td>${r.service}</td>
+
+<td>${r.stylist}</td>
+
+<td>${r.date}</td>
+
+<td>${r.time}</td>
+
+<td>${r.payment}</td>
+
+<td>${r.status}</td>
+
+<td>
+
+${
+r.status === "Confirmed"
+
+?
+
+`<button
+onclick="reschedule(${index})">
+
+Reschedule
+
+</button>
+
+<button
+class="danger"
+onclick="cancelReservation(${index})">
+
+Cancel
+
+</button>`
+
+:
+
+""
+
+}
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+
+let upcoming =
+reservations.filter(function(r) {
+
+return r.status === "Confirmed";
+
+});
+
+
+document.getElementById(
+"upcoming"
+).innerHTML =
+
+"<p>Upcoming Reservations: <b>" +
+upcoming.length +
+"</b></p>";
+
+}
+
+
+/* ===========================
+   CANCEL
+=========================== */
+
+function cancelReservation(index) {
+
+if(
+confirm(
+"Cancel this appointment?"
+)
+) {
+
+reservations[index].status =
+"Cancelled";
+
+
+message(
+"Appointment cancelled successfully."
+);
+
+
+displayReservations();
+
+}
+
+}
+
+
+/* ===========================
+   RESCHEDULE
+=========================== */
+
+function reschedule(index) {
+
+let newDate =
+prompt(
+"Enter new date (YYYY-MM-DD):"
+);
+
+let newTime =
+prompt(
+"Enter new time:"
+);
+
+
+if(!newDate || !newTime) {
+
+return;
+
+}
+
+
+let duplicate =
+reservations.find(function(r,i) {
+
+return (
+i !== index &&
+r.date === newDate &&
+r.time === newTime &&
+r.stylist === reservations[index].stylist &&
+r.status === "Confirmed"
+);
+
+});
+
+
+if(duplicate) {
+
+alert("Selected slot is unavailable.");
+
+return;
+
+}
+
+
+reservations[index].date =
+newDate;
+
+reservations[index].time =
+newTime;
+
+
+message(
+"Appointment rescheduled successfully."
+);
+
+
+displayReservations();
+
+}
+
+
+/* ===========================
+   CALENDAR
+=========================== */
+
+function showCalendarReservations() {
+
+let date =
+document.getElementById(
+"calendarDate"
+).value;
+
+
+let result =
+reservations.filter(function(r) {
+
+return (
+!date ||
+r.date === date
+);
+
+});
+
+
+let html = "";
+
+
+if(result.length === 0) {
+
+html =
+"<p>No reservations for this date.</p>";
+
+}
+
+else {
+
+html += `
+
+<table>
+
+<tr>
+<th>ID</th>
+<th>Service</th>
+<th>Stylist</th>
+<th>Time</th>
+<th>Status</th>
+</tr>
+
+`;
+
+
+result.forEach(function(r) {
+
+html += `
+
+<tr>
+
+<td>${r.id}</td>
+
+<td>${r.service}</td>
+
+<td>${r.stylist}</td>
+
+<td>${r.time}</td>
+
+<td>${r.status}</td>
+
+</tr>
+
+`;
+
+});
+
+
+html += "</table>";
+
+}
+
+
+document.getElementById(
+"calendarReservations"
+).innerHTML = html;
+
+}
+
+
+/* ===========================
+   ADMIN DISPLAY
+=========================== */
+
+function displayAdmin() {
+
+let table =
+document.getElementById(
+"adminReservationTable"
+);
+
+table.innerHTML = "";
+
+
+reservations.forEach(function(r) {
+
+table.innerHTML += `
+
+<tr>
+
+<td>${r.id}</td>
+
+<td>${r.customer}</td>
+
+<td>${r.service}</td>
+
+<td>${r.stylist}</td>
+
+<td>${r.date}</td>
+
+<td>${r.time}</td>
+
+<td>${r.status}</td>
+
+</tr>
+
+`;
+
+});
+
+
+/* Admin Upcoming */
+
+let upcoming =
+reservations.filter(function(r) {
+
+return r.status === "Confirmed";
+
+});
+
+
+document.getElementById(
+"adminUpcoming"
+).innerHTML =
+
+"<p>Upcoming reservations: <b>" +
+upcoming.length +
+"</b></p>";
+
+
+/* Manage */
+
+let manage =
+document.getElementById(
+"adminManage"
+);
+
+manage.innerHTML = "";
+
+
+reservations.forEach(function(r,index) {
+
+manage.innerHTML += `
+
+<div class="card">
+
+<b>${r.id}</b>
+
+<br>
+
+Service: ${r.service}
+
+<br>
+
+Stylist: ${r.stylist}
+
+<br>
+
+Date: ${r.date}
+
+<br>
+
+Time: ${r.time}
+
+<br>
+
+Status: ${r.status}
+
+<br><br>
+
+<button
+onclick="adminEdit(${index})">
+
+Edit
+
+</button>
+
+<button
+class="danger"
+onclick="cancelReservation(${index})">
+
+Cancel
+
+</button>
+
+<button
+onclick="contactCustomer('${r.customer}')">
+
+📞 Contact
+
+</button>
+
+</div>
+
+`;
+
+});
+
+
+/* Feedback */
+
+let feedbackHTML = "";
+
+
+feedbacks.forEach(function(f) {
+
+feedbackHTML += `
+
+<div class="card">
+
+<b>${f.name}</b>
+
+<p>Rating: ${f.rating}</p>
+
+<p>${f.text}</p>
+
+</div>
+
+`;
+
+});
+
+
+document.getElementById(
+"adminFeedback"
+).innerHTML =
+feedbackHTML || "No feedback yet.";
+
+
+/* Report */
+
+let total =
+reservations.filter(function(r) {
+
+return r.status === "Confirmed";
+
+}).length;
+
+
+let revenue =
+reservations.reduce(
+function(sum,r) {
+
+return sum +
+(r.status === "Confirmed"
+? r.price
+: 0);
+
+},0);
+
+
+document.getElementById(
+"adminReport"
+).innerHTML =
+
+"<p>Total Confirmed Appointments: <b>" +
+total +
+"</b></p>" +
+
+"<p>Total Revenue: <b>₹" +
+revenue +
+"</b></p>";
+
+}
+
+
+/* ===========================
+   ADMIN ADD RESERVATION
+=========================== */
+
+function adminAddReservation() {
+
+let customer =
+document.getElementById(
+"adminCustomer"
+).value;
+
+let service =
+document.getElementById(
+"adminService"
+).value;
+
+let date =
+document.getElementById(
+"adminDate"
+).value;
+
+let time =
+document.getElementById(
+"adminTime"
+).value;
+
+
+if(
+customer === "" ||
+date === "" ||
+time === ""
+) {
+
+alert("Fill all reservation details.");
+
+return;
+
+}
+
+
+reservations.push({
+
+id:
+"APT" +
+Math.floor(
+1000 +
+Math.random() * 9000
+),
+
+customer:
+customer,
+
+service:
+service,
+
+price:
+500,
+
+stylist:
+"Staff Member",
+
+date:
+date,
+
+time:
+time,
+
+payment:
+"Offline",
+
+status:
+"Confirmed"
+
+});
+
+
+message(
+"Reservation added by manager."
+);
+
+
+displayAdmin();
+
+}
+
+
+/* ===========================
+   ADMIN EDIT
+=========================== */
+
+function adminEdit(index) {
+
+let date =
+prompt(
+"Enter new date:",
+reservations[index].date
+);
+
+let time =
+prompt(
+"Enter new time:",
+reservations[index].time
+);
+
+
+if(date && time) {
+
+reservations[index].date =
+date;
+
+reservations[index].time =
+time;
+
+
+message(
+"Reservation updated."
+);
+
+
+displayAdmin();
+
+}
+
+}
+
+
+/* ===========================
+   CONTACT CUSTOMER
+=========================== */
+
+function contactCustomer(name) {
+
+alert(
+"📞 Contacting customer: " +
+name +
+"\nSMS / Call option opened."
+);
+
+}
+
+
+/* ===========================
+   FEEDBACK
+=========================== */
+
+function submitFeedback() {
+
+let name =
+document.getElementById(
+"feedbackName"
+).value;
+
+let rating =
+document.getElementById(
+"rating"
+).value;
+
+let text =
+document.getElementById(
+"feedbackText"
+).value;
+
+
+if(name === "" || text === "") {
+
+alert("Please enter your feedback.");
+
+return;
+
+}
+
+
+feedbacks.push({
+
+name:
+name,
+
+rating:
+rating,
+
+text:
+text
+
+});
+
+
+alert(
+"Thank you for your feedback!"
+);
+
+
+document.getElementById(
+"feedbackText"
+).value = "";
+
+
+displayAdmin();
+
+}
+
+
+/* ===========================
+   INITIALIZATION
+=========================== */
+
+showPage("home");
+
+</script>
+
+</body>
+</html>
+```
+
+**Demo login**
+
+Customer:
+
+* Email: `customer@gmail.com`
+* Password: `1234`
+
+Manager/Admin:
+
+* Email: `admin@salon.com`
+* Password: `admin123`
+
+**Implemented:** registration, login, services, stylist selection, real-time slot checking, reservation calendar, booking, full/deposit payment simulation, customer dashboard, upcoming/history reservations, rescheduling, cancellation, manager panel, add/edit reservations, customer contact simulation, feedback, revenue report, and responsive design.
