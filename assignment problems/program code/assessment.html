@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skill Assessment</title><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar"><div><h1>Skill Assessment</h1><p>Evaluate student proficiency</p></div><button class="logout" onclick="logout()">Logout</button></header>
+<nav class="navbar"><a href="index.html">Home</a><a href="dashboard.html">Dashboard</a><a href="assessment.html">Assessment</a><a href="certification.html">Certifications</a><a href="projects.html">Projects</a></nav>
+<main class="container">
+  <section class="card">
+    <h2>Assessment Form</h2>
+    <form id="assessmentForm" class="form-grid">
+      <div><label>Skill</label><select id="assessmentSkill"><option>Java</option><option>Python</option><option>HTML/CSS</option><option>JavaScript</option><option>Database</option><option>Communication</option></select></div>
+      <div><label>Score (0–100)</label><input id="assessmentScore" type="number" min="0" max="100" required></div>
+    </form>
+    <button class="btn" onclick="calculateAssessment()">Evaluate</button>
+    <div id="assessmentResult"></div>
+  </section>
+  <section class="card">
+    <h2>Assessment History</h2>
+    <div class="table-wrap"><table><thead><tr><th>Date</th><th>Skill</th><th>Score</th><th>Level</th></tr></thead><tbody id="assessmentTable"></tbody></table></div>
+  </section>
+</main>
+<footer>CSA4305 – Internet Programming | Assessment</footer>
+<script src="script.js"></script>
+</body>
+</html>

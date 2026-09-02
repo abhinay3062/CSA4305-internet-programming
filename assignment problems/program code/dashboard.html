@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Student Skill System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div><h1>Student Dashboard</h1><p>Skill development overview</p></div>
+  <button class="logout" onclick="logout()">Logout</button>
+</header>
+<nav class="navbar">
+  <a href="index.html">Home</a><a href="dashboard.html">Dashboard</a>
+  <a href="assessment.html">Assessment</a><a href="certification.html">Certifications</a><a href="projects.html">Projects</a>
+</nav>
+
+<main class="container">
+  <section class="card">
+    <h2>Student Profile</h2>
+    <form id="profileForm" class="form-grid">
+      <div><label>Student Name</label><input id="studentName" required></div>
+      <div><label>Register Number</label><input id="registerNumber" required></div>
+      <div><label>Email</label><input id="email" type="email" required></div>
+      <div><label>Department</label><input id="department" value="Computer Science and Engineering"></div>
+      <div><label>Year</label>
+        <select id="year"><option>1st Year</option><option>2nd Year</option><option>3rd Year</option><option>4th Year</option></select>
+      </div>
+      <div><label>Career Goal</label><input id="careerGoal" placeholder="e.g. Software Developer"></div>
+    </form>
+    <button class="btn" onclick="saveProfile()">Save Profile</button>
+    <p id="profileMessage" class="message"></p>
+  </section>
+
+  <section class="stats grid four">
+    <div class="stat"><span>Total Skills</span><strong id="totalSkills">0</strong></div>
+    <div class="stat"><span>Average Level</span><strong id="averageSkill">0</strong></div>
+    <div class="stat"><span>Skill Gaps</span><strong id="skillGaps">0</strong></div>
+    <div class="stat"><span>Overall Progress</span><strong id="progress">0%</strong></div>
+  </section>
+
+  <section class="card">
+    <h2>Add Skill</h2>
+    <form id="skillForm" class="form-grid">
+      <div><label>Skill Name</label><input id="skillName" placeholder="Java" required></div>
+      <div><label>Category</label>
+        <select id="category">
+          <option>Programming</option><option>Web Development</option><option>Database</option>
+          <option>Communication</option><option>Management</option><option>Other</option>
+        </select>
+      </div>
+      <div><label>Current Level (1–5)</label><input id="currentLevel" type="number" min="1" max="5" required></div>
+      <div><label>Required Level (1–5)</label><input id="requiredLevel" type="number" min="1" max="5" required></div>
+    </form>
+    <button class="btn" onclick="addSkill()">Add Skill</button>
+  </section>
+
+  <section class="card">
+    <h2>Skill Analysis</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Skill</th><th>Category</th><th>Current</th><th>Required</th><th>Gap</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody id="skillTable"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Learning Recommendations</h2>
+    <div id="recommendationList"></div>
+  </section>
+</main>
+
+<footer>CSA4305 – Internet Programming | Dashboard</footer>
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="skills.xsl"?>
+<skills>
+  <skill>
+    <name>Java</name>
+    <category>Programming</category>
+    <requiredLevel>5</requiredLevel>
+  </skill>
+  <skill>
+    <name>Python</name>
+    <category>Programming</category>
+    <requiredLevel>5</requiredLevel>
+  </skill>
+  <skill>
+    <name>HTML/CSS</name>
+    <category>Web Development</category>
+    <requiredLevel>4</requiredLevel>
+  </skill>
+  <skill>
+    <name>JavaScript</name>
+    <category>Web Development</category>
+    <requiredLevel>5</requiredLevel>
+  </skill>
+  <skill>
+    <name>Communication</name>
+    <category>Communication</category>
+    <requiredLevel>4</requiredLevel>
+  </skill>
+</skills>

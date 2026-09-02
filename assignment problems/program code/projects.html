@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects</title><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar"><div><h1>Projects & Internships</h1><p>Track practical experience</p></div><button class="logout" onclick="logout()">Logout</button></header>
+<nav class="navbar"><a href="index.html">Home</a><a href="dashboard.html">Dashboard</a><a href="assessment.html">Assessment</a><a href="certification.html">Certifications</a><a href="projects.html">Projects</a></nav>
+<main class="container">
+  <section class="card">
+    <h2>Add Project</h2>
+    <form class="form-grid">
+      <div><label>Project Name</label><input id="projectName" required></div>
+      <div><label>Technology</label><input id="projectTech" placeholder="HTML, CSS, JavaScript"></div>
+      <div><label>Type</label><select id="projectType"><option>Academic Project</option><option>Personal Project</option><option>Internship</option><option>Workshop</option></select></div>
+      <div><label>Duration</label><input id="projectDuration" placeholder="3 months"></div>
+      <div class="full"><label>Description</label><textarea id="projectDescription" rows="4"></textarea></div>
+    </form>
+    <button class="btn" onclick="addProject()">Add Project</button>
+  </section>
+  <section class="card">
+    <h2>Project Records</h2>
+    <div class="table-wrap"><table><thead><tr><th>Project</th><th>Technology</th><th>Type</th><th>Duration</th><th>Description</th><th>Action</th></tr></thead><tbody id="projectTable"></tbody></table></div>
+  </section>
+</main>
+<footer>CSA4305 – Internet Programming | Projects</footer>
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration</title><link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-page">
+<div class="auth-card">
+  <h1>Create Student Account</h1>
+  <form id="registrationForm">
+    <label>Student Name</label><input id="regName" required>
+    <label>Email</label><input id="regEmail" type="email" required>
+    <label>Password</label><input id="regPassword" type="password" minlength="4" required>
+    <label>Register Number</label><input id="regNumber" required>
+    <button class="btn full-btn" type="submit">Register</button>
+  </form>
+  <p id="registrationMessage" class="message"></p>
+  <p>Already registered? <a href="login.html">Login</a></p>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

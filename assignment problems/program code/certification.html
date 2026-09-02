@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Certifications</title><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar"><div><h1>Certifications</h1><p>Record student achievements</p></div><button class="logout" onclick="logout()">Logout</button></header>
+<nav class="navbar"><a href="index.html">Home</a><a href="dashboard.html">Dashboard</a><a href="assessment.html">Assessment</a><a href="certification.html">Certifications</a><a href="projects.html">Projects</a></nav>
+<main class="container">
+  <section class="card">
+    <h2>Add Certification</h2>
+    <form class="form-grid">
+      <div><label>Certificate Name</label><input id="certName" required></div>
+      <div><label>Organization</label><input id="certOrg" required></div>
+      <div><label>Issue Date</label><input id="certDate" type="date" required></div>
+      <div><label>Certificate ID</label><input id="certId"></div>
+    </form>
+    <button class="btn" onclick="addCertification()">Add Certification</button>
+  </section>
+  <section class="card">
+    <h2>Certification Records</h2>
+    <div class="table-wrap"><table><thead><tr><th>Certificate</th><th>Organization</th><th>Issue Date</th><th>ID</th><th>Action</th></tr></thead><tbody id="certTable"></tbody></table></div>
+  </section>
+</main>
+<footer>CSA4305 – Internet Programming | Certifications</footer>
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Skill Development Management System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div>
+    <h1>Student Skill Development Management System</h1>
+    <p>CSA4305 – Internet Programming</p>
+  </div>
+  <button class="logout" onclick="logout()">Logout</button>
+</header>
+
+<nav class="navbar">
+  <a href="index.html">Home</a>
+  <a href="dashboard.html">Dashboard</a>
+  <a href="assessment.html">Assessment</a>
+  <a href="certification.html">Certifications</a>
+  <a href="projects.html">Projects</a>
+</nav>
+
+<main class="container">
+  <section class="hero">
+    <div>
+      <span class="badge">Student Portal</span>
+      <h2>Build, assess and track your skills</h2>
+      <p>Manage your profile, skills, assessments, certifications and projects from one centralized platform.</p>
+      <a class="btn" href="dashboard.html">Open Dashboard</a>
+    </div>
+    <div class="hero-card">
+      <h3>Quick Overview</h3>
+      <p><strong id="homeStudent">Student</strong></p>
+      <p>Total Skills: <strong id="homeSkills">0</strong></p>
+      <p>Average Level: <strong id="homeAverage">0</strong>/5</p>
+      <p>Progress: <strong id="homeProgress">0%</strong></p>
+    </div>
+  </section>
+
+  <section class="grid four">
+    <div class="card"><h3>Skill Profiles</h3><p>Create and update technical and soft-skill records.</p></div>
+    <div class="card"><h3>Assessments</h3><p>Evaluate proficiency using assessment scores.</p></div>
+    <div class="card"><h3>Achievements</h3><p>Maintain certification and project evidence.</p></div>
+    <div class="card"><h3>Recommendations</h3><p>Identify gaps and view suitable learning activities.</p></div>
+  </section>
+
+  <section class="card">
+    <h2>Profile</h2>
+    <div id="profileSummary" class="profile-box">No profile saved yet. Open Dashboard to create one.</div>
+  </section>
+</main>
+
+<footer>CSA4305 – Internet Programming | Student Skill Development Management System</footer>
+<script src="script.js"></script>
+</body>
+</html>
